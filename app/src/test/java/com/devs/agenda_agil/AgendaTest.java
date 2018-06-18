@@ -35,5 +35,10 @@ public class AgendaTest {
         assertFalse(agenda.pertenece(evento));
     }
 
+    @Test
+    public void evento_con_fecha() {
+        Agenda agenda = new Agenda();
+        Evento evento = new Evento(new Date());
 
+    }
 }
