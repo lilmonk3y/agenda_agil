@@ -84,5 +84,10 @@ public class AgendaTest {
     agenda.planificarDia
     agenda.finalizarDia
     */
+
+    @Test
+    public void finalizar_dia(){
+        
+    }
 }
 
