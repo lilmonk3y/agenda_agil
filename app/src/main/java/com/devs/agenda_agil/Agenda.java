@@ -3,6 +3,7 @@ package com.devs.agenda_agil;
 import com.devs.Exception.NotImplemented;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 class Agenda {
@@ -40,7 +41,6 @@ class Agenda {
 
         this.backlog.remove(tarea);
         this.historialTareas.add(tarea);
-
     }
 
     public List<Tarea> historialDeTareas() {
@@ -63,7 +63,13 @@ class Agenda {
         return this.planificado.contains(tarea);
     }
 
-    public list<> mostrarDia(Tarea tarea, Evento evento) {
-        return;
+    public List<Evento> mostrarDia(Date diaAMostrar) {
+        List<Evento> eventosAMostrar = new ArrayList<>();
+        for(Evento evento : this.eventos){
+            if(evento.fecha() == diaAMostrar){
+                eventosAMostrar.add(evento);
+            }
+        }
+        return eventosAMostrar;
     }
 }

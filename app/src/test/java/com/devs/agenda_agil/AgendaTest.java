@@ -2,6 +2,7 @@ package com.devs.agenda_agil;
 
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertFalse;
@@ -81,7 +82,7 @@ public class AgendaTest {
     }
 
     @Test
-    public void agrego_una_tarea_y_la_planifico_para_el_siguiente_dia(){
+    public void planifico_una_tarea_del_backlog_y_esta_se_agrega_para_el_siguiente_dia(){
         Agenda agenda = new Agenda();
         Tarea tarea = new Tarea();
         agenda.agregar(tarea);
@@ -92,22 +93,35 @@ public class AgendaTest {
         assertFalse(agenda.pertenece(tarea));
     }
 
+    //TODO: MIRAR BIEN ESTE TEST QUE CREO QUE ESTÁ MAL
     @Test
-    public void reune_tareas_planificadas_y_eventos_y_los_muestra(){
+    public void agregamos_eventos_a_un_dia_y_estos_se_muestran(){
+        // Capaz useamos mejor la clase gregorian calendar.
+        Date diaAMostrar = new Date(6,1,2018);
+        Date diaIncorecto = new Date(5,1,2018);
         Agenda agenda = new Agenda();
-        //agrego evento
-        Evento evento = new Evento();
+        Evento evento = new Evento(diaAMostrar);
+        Evento eventoQueNoSeDebeMostrar = new Evento(diaIncorecto);
+
         agenda.agregar(evento);
+        agenda.agregar(eventoQueNoSeDebeMostrar);
+        List<Evento> eventosDelDiaAMostrar = agenda.mostrarDia(diaAMostrar);
+
+        assertTrue(eventosDelDiaAMostrar.contains(evento));
+        assertFalse(eventosDelDiaAMostrar.contains(eventoQueNoSeDebeMostrar));
+    }
+
+    // TODO: HACER EL TEST PARA QUE AL PLANIFICAR UNA TAREA ESTA SE AGREGUE A LOS EVENTOS DEL DÍA SIGUIENTE
+    @Test
+    public void test(){
+        Agenda agenda = new Agenda();
         //agrego y planifico tarea
         Tarea tarea = new Tarea();
         agenda.agregar(tarea);
         agenda.planificar(tarea);
-
-        agenda.mostrarDia(tarea, evento);
     }
 
     /*
-    agenda.planificarDia
     agenda.finalizarDia
     */
 }
