@@ -80,6 +80,32 @@ public class AgendaTest {
         assertTrue(agenda.historialDeTareas().contains(tarea));
     }
 
+    @Test
+    public void agrego_una_tarea_y_la_planifico_para_el_siguiente_dia(){
+        Agenda agenda = new Agenda();
+        Tarea tarea = new Tarea();
+        agenda.agregar(tarea);
+
+        agenda.planificar(tarea);
+
+        assertTrue(agenda.planificado(tarea));
+        assertFalse(agenda.pertenece(tarea));
+    }
+
+    @Test
+    public void reune_tareas_planificadas_y_eventos_y_los_muestra(){
+        Agenda agenda = new Agenda();
+        //agrego evento
+        Evento evento = new Evento();
+        agenda.agregar(evento);
+        //agrego y planifico tarea
+        Tarea tarea = new Tarea();
+        agenda.agregar(tarea);
+        agenda.planificar(tarea);
+
+        agenda.mostrarDia(tarea, evento);
+    }
+
     /*
     agenda.planificarDia
     agenda.finalizarDia

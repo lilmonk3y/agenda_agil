@@ -9,6 +9,7 @@ class Agenda {
     List<Evento> eventos = new ArrayList<>();
     List<Tarea> backlog = new ArrayList<>();
     List<Tarea> historialTareas = new ArrayList<>();
+    List<Tarea> planificado = new ArrayList<>();
 
     public void agregar(Evento evento) {
         this.eventos.add(evento);
@@ -39,9 +40,30 @@ class Agenda {
 
         this.backlog.remove(tarea);
         this.historialTareas.add(tarea);
+
     }
 
     public List<Tarea> historialDeTareas() {
         return this.historialTareas;
+    }
+
+    /**
+     * La utilidad de este método la vemos cuando en la aplicación tengamos la view
+     * planificarDia llamemos a planificar()
+     * @param tarea
+     */
+    public void planificar(Tarea tarea) {
+        assert(this.backlog().contains(tarea));
+
+        this.backlog.remove(tarea);
+        this.planificado.add(tarea);
+    }
+
+    public boolean planificado(Tarea tarea) {
+        return this.planificado.contains(tarea);
+    }
+
+    public list<> mostrarDia(Tarea tarea, Evento evento) {
+        return;
     }
 }
