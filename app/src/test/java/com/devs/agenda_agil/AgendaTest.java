@@ -1,8 +1,14 @@
 package com.devs.agenda_agil;
 
-import org.junit.Test;
+import com.devs.src.DateUtil;
 
-import java.util.Date;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.Assert.assertFalse;
@@ -84,42 +90,50 @@ public class AgendaTest {
     @Test
     public void planifico_una_tarea_del_backlog_y_esta_se_agrega_para_el_siguiente_dia(){
         Agenda agenda = new Agenda();
-        Tarea tarea = new Tarea();
+        Tarea tarea = new Tarea("Comprar pan.");
         agenda.agregar(tarea);
 
         agenda.planificar(tarea);
 
-        assertTrue(agenda.planificado(tarea));
+        assertTrue(agenda.planificada(tarea));
         assertFalse(agenda.pertenece(tarea));
     }
 
-    //TODO: MIRAR BIEN ESTE TEST QUE CREO QUE ESTÁ MAL
     @Test
     public void agregamos_eventos_a_un_dia_y_estos_se_muestran(){
-        // Capaz useamos mejor la clase gregorian calendar.
-        Date diaAMostrar = new Date(6,1,2018);
-        Date diaIncorecto = new Date(5,1,2018);
+        Calendar diaAMostrar = new GregorianCalendar(2018,1,1);
+        Calendar diaIncorrecto = new GregorianCalendar(2018,4,5);
         Agenda agenda = new Agenda();
         Evento evento = new Evento(diaAMostrar);
-        Evento eventoQueNoSeDebeMostrar = new Evento(diaIncorecto);
+        Evento eventoQueNoSeDebeMostrar = new Evento(diaIncorrecto);
 
         agenda.agregar(evento);
         agenda.agregar(eventoQueNoSeDebeMostrar);
-        List<Evento> eventosDelDiaAMostrar = agenda.mostrarDia(diaAMostrar);
+        DiaDeAgenda DiaAMostrar = agenda.mostrarDia(diaAMostrar);
 
-        assertTrue(eventosDelDiaAMostrar.contains(evento));
-        assertFalse(eventosDelDiaAMostrar.contains(eventoQueNoSeDebeMostrar));
+        assertTrue(DiaAMostrar.eventos().contains(evento));
+        assertFalse(DiaAMostrar.eventos().contains(eventoQueNoSeDebeMostrar));
     }
 
-    // TODO: HACER EL TEST PARA QUE AL PLANIFICAR UNA TAREA ESTA SE AGREGUE A LOS EVENTOS DEL DÍA SIGUIENTE
     @Test
-    public void test(){
-        Agenda agenda = new Agenda();
-        //agrego y planifico tarea
+    public void al_planificar_una_tarea_esta_se_agrega_a_los_eventos_del_dia_siguiente(){
+        Calendar fechaDeHoy = new GregorianCalendar(2017,12,15);
+        final DateUtil dateSupplier = Mockito.mock(DateUtil.class);
+        Mockito.when(dateSupplier.getDate()).thenReturn(fechaDeHoy);
+        Agenda agenda = new Agenda(dateSupplier);
         Tarea tarea = new Tarea();
         agenda.agregar(tarea);
+
         agenda.planificar(tarea);
+
+        fechaDeHoy.add(Calendar.DATE, 1);
+        Calendar fechaDeMañana = fechaDeHoy;
+        //Calendar fechaDeMañana = DateUtil.newDateAddingDays(fechaDeHoy,1);
+        DiaDeAgenda DiaAMostrar = agenda.mostrarDia(fechaDeMañana);
+        assertTrue(DiaAMostrar.tareas().size() == 1);
     }
+
+
 
     /*
     agenda.finalizarDia

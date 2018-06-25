@@ -1,16 +1,23 @@
 package com.devs.agenda_agil;
 
-import com.devs.Exception.NotImplemented;
+import com.devs.src.DateUtil;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 class Agenda {
     List<Evento> eventos = new ArrayList<>();
     List<Tarea> backlog = new ArrayList<>();
     List<Tarea> historialTareas = new ArrayList<>();
-    List<Tarea> planificado = new ArrayList<>();
+    List<TareaPlanificada> planificado = new ArrayList<>();
+    DateUtil dateSupplier = new DateUtil();
+
+    public Agenda(DateUtil dateSupplier) {
+        this.dateSupplier = dateSupplier;
+    }
+
+    public Agenda() { }
 
     public void agregar(Evento evento) {
         this.eventos.add(evento);
@@ -56,20 +63,42 @@ class Agenda {
         assert(this.backlog().contains(tarea));
 
         this.backlog.remove(tarea);
-        this.planificado.add(tarea);
+        Calendar diaDeMañana = getTomorrowDate();
+        TareaPlanificada tareaPlanificada = new TareaPlanificada(tarea.nombre(), diaDeMañana);
+        this.planificado.add(tareaPlanificada);
     }
 
-    public boolean planificado(Tarea tarea) {
-        return this.planificado.contains(tarea);
+    private Calendar getTomorrowDate() {
+        Calendar diaDeMañana = this.dateSupplier.getDate();
+        diaDeMañana.add(Calendar.DATE, 1);
+        return diaDeMañana;
     }
 
-    public List<Evento> mostrarDia(Date diaAMostrar) {
-        List<Evento> eventosAMostrar = new ArrayList<>();
-        for(Evento evento : this.eventos){
-            if(evento.fecha() == diaAMostrar){
-                eventosAMostrar.add(evento);
+    public boolean planificada(Tarea tarea) {
+        boolean pertenece = false;
+        for(TareaPlanificada planificada : this.planificado){
+            if(planificada.nombre().equals(tarea.nombre())){
+                pertenece = true;
             }
         }
-        return eventosAMostrar;
+        return pertenece;
+    }
+
+    public DiaDeAgenda mostrarDia(Calendar diaAMostrar) {
+        DiaDeAgenda obligacionesDelDia = new DiaDeAgenda();
+
+        for(Evento evento : this.eventos){
+            if( evento.fecha().equals(diaAMostrar) ){
+                obligacionesDelDia.add(evento);
+            }
+        }
+
+        for(TareaPlanificada tarea : this.planificado){
+            if( tarea.fecha().equals(diaAMostrar) ){
+                obligacionesDelDia.add(tarea);
+            }
+        }
+
+        return obligacionesDelDia;
     }
 }

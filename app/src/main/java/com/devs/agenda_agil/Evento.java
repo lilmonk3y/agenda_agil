@@ -1,19 +1,21 @@
 package com.devs.agenda_agil;
 
-import java.util.Date;
+import java.util.Calendar;
 
 class Evento {
-    private Date fecha;
+    private Calendar fecha;
 
-    public Evento(){
-        this.fecha = new Date();
-    }
+    public Evento(){ }
 
-    public Evento(Date fecha) {
+    public Evento(Calendar fecha) {
         this.fecha = fecha;
     }
 
-    public Date fecha() {
+    public Evento(Calendar date, Tarea tarea) {
+        this.fecha = date;
+    }
+
+    public Calendar fecha() {
         return this.fecha;
     }
 
