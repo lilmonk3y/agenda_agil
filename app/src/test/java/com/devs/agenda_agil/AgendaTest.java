@@ -1,12 +1,10 @@
 package com.devs.agenda_agil;
 
-import com.devs.src.DateUtil;
+import android.support.annotation.NonNull;
 
+import com.devs.src.DateUtil;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-
-
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -26,7 +24,7 @@ public class AgendaTest {
     }
 
     @Test
-    public void pregunto_por_un_evento_que_no_existe(){
+    public void elimino_un_evento_y_este_deja_de_existe(){
         Agenda agenda = new Agenda();
         Evento evento = new Evento();
 
@@ -126,11 +124,20 @@ public class AgendaTest {
 
         agenda.planificar(tarea);
 
-        fechaDeHoy.add(Calendar.DATE, 1);
-        Calendar fechaDeMañana = fechaDeHoy;
+        Calendar fechaDeMañana = getNextDate(fechaDeHoy);
         //Calendar fechaDeMañana = DateUtil.newDateAddingDays(fechaDeHoy,1);
         DiaDeAgenda DiaAMostrar = agenda.mostrarDia(fechaDeMañana);
         assertTrue(DiaAMostrar.tareas().size() == 1);
+    }
+
+
+
+    //*  ------------------------- METODOS AUXILIARES ------------------------------*//
+
+    @NonNull
+    private Calendar getNextDate(Calendar fechaDeHoy) {
+        fechaDeHoy.add(Calendar.DATE, 1);
+        return fechaDeHoy;
     }
 
 

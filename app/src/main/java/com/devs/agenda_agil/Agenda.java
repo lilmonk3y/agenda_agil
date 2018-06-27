@@ -63,7 +63,7 @@ class Agenda {
         assert(this.backlog().contains(tarea));
 
         this.backlog.remove(tarea);
-        Calendar diaDeMañana = getTomorrowDate();
+        Calendar diaDeMañana = this.getTomorrowDate();
         TareaPlanificada tareaPlanificada = new TareaPlanificada(tarea.nombre(), diaDeMañana);
         this.planificado.add(tareaPlanificada);
     }
