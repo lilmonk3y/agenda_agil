@@ -23,16 +23,24 @@ class Agenda {
         this.eventos.add(evento);
     }
 
-    public boolean pertenece(Evento evento) {
-        return this.eventos.contains(evento);
-    }
-
     public void eliminar(Evento evento) {
+        assert eventos.contains(evento);
+
         this.eventos.remove(evento);
     }
 
     public void agregar(Tarea tarea) {
         this.backlog.add(tarea);
+    }
+
+    public void eliminar(Tarea tarea) {
+        assert backlog.contains(tarea);
+
+        this.backlog.remove(tarea);
+    }
+
+    public boolean pertenece(Evento evento) {
+        return this.eventos.contains(evento);
     }
 
     public boolean pertenece(Tarea tarea) {

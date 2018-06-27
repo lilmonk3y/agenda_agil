@@ -9,6 +9,10 @@ class Tarea {
 
     public Tarea() { }
 
+    public Tarea(String nombre_de_la_tarea, Prioridad prioridad) {
+
+    }
+
     public String nombre() {
         return this.nombre;
     }

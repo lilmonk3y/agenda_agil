@@ -24,14 +24,6 @@ public class AgendaTest {
     }
 
     @Test
-    public void elimino_un_evento_y_este_deja_de_existe(){
-        Agenda agenda = new Agenda();
-        Evento evento = new Evento();
-
-        assertFalse(agenda.pertenece(evento));
-    }
-
-    @Test
     public void elinimar_evento_de_la_agenda_lo_quita(){
         Agenda agenda = new Agenda();
         Evento evento = new Evento();
@@ -53,9 +45,12 @@ public class AgendaTest {
     }
 
     @Test
-    public void pregunto_si_la_tarea_existe_sin_haberla_agregado(){
+    public void elimino_una_tarea_del_backlog_y_esta_se_elimina(){
         Agenda agenda = new Agenda();
         Tarea tarea = new Tarea();
+        agenda.agregar(tarea);
+
+        agenda.eliminar(tarea);
 
         assertFalse(agenda.pertenece(tarea));
     }
@@ -128,6 +123,23 @@ public class AgendaTest {
         //Calendar fechaDeMañana = DateUtil.newDateAddingDays(fechaDeHoy,1);
         DiaDeAgenda DiaAMostrar = agenda.mostrarDia(fechaDeMañana);
         assertTrue(DiaAMostrar.tareas().size() == 1);
+    }
+
+    @Test
+    public void test() {
+        Agenda agenda = new Agenda();
+        Tarea tareaMaxima = new Tarea("nombre de la tarea", Prioridad.MAXIMA);
+        Tarea tareaBaja = new Tarea("nombre de la manteca", Prioridad.BAJA);
+        Tarea tareaSinPrioridad = new Tarea("nombre de tarea sin prioridad");
+        agenda.agregar(tareaMaxima);
+        agenda.agregar(tareaSinPrioridad);
+        agenda.agregar(tareaBaja);
+
+        List<Tarea> backlog = agenda.backlog();
+
+        assertTrue(tareaMaxima == backlog.get(0));
+        assertTrue(tareaBaja == backlog.get(1));
+        assertTrue(tareaSinPrioridad == backlog.get(2));
     }
 
 
