@@ -1,9 +1,12 @@
 package com.devs.agenda_agil;
 
+import android.support.annotation.NonNull;
+
 import com.devs.src.DateUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 class Agenda {
@@ -23,11 +26,9 @@ class Agenda {
         this.eventos.add(evento);
     }
 
-    public boolean pertenece(Evento evento) {
-        return this.eventos.contains(evento);
-    }
-
     public void eliminar(Evento evento) {
+        assert eventos.contains(evento);
+
         this.eventos.remove(evento);
     }
 
@@ -35,11 +36,22 @@ class Agenda {
         this.backlog.add(tarea);
     }
 
+    public void eliminar(Tarea tarea) {
+        assert backlog.contains(tarea);
+
+        this.backlog.remove(tarea);
+    }
+
+    public boolean pertenece(Evento evento) {
+        return this.eventos.contains(evento);
+    }
+
     public boolean pertenece(Tarea tarea) {
         return this.backlog.contains(tarea);
     }
 
     public List<Tarea> backlog() {
+        Collections.sort(this.backlog);
         return this.backlog;
     }
 
