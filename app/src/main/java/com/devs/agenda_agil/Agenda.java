@@ -1,9 +1,12 @@
 package com.devs.agenda_agil;
 
+import android.support.annotation.NonNull;
+
 import com.devs.src.DateUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 class Agenda {
@@ -48,6 +51,7 @@ class Agenda {
     }
 
     public List<Tarea> backlog() {
+        Collections.sort(this.backlog);
         return this.backlog;
     }
 

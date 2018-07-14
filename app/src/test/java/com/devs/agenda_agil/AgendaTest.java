@@ -5,7 +5,10 @@ import android.support.annotation.NonNull;
 import com.devs.src.DateUtil;
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -126,11 +129,11 @@ public class AgendaTest {
     }
 
     @Test
-    public void test() {
+    public void le_pido_el_backlog_a_la_agenda_y_este_debe_estar_ordenado() {
         Agenda agenda = new Agenda();
         Tarea tareaMaxima = new Tarea("nombre de la tarea", Prioridad.MAXIMA);
         Tarea tareaBaja = new Tarea("nombre de la manteca", Prioridad.BAJA);
-        Tarea tareaSinPrioridad = new Tarea("nombre de tarea sin prioridad");
+        Tarea tareaSinPrioridad = new Tarea("nombre de tarea sin getNivel");
         agenda.agregar(tareaMaxima);
         agenda.agregar(tareaSinPrioridad);
         agenda.agregar(tareaBaja);
@@ -141,10 +144,23 @@ public class AgendaTest {
         assertTrue(tareaBaja == backlog.get(1));
         assertTrue(tareaSinPrioridad == backlog.get(2));
     }
+    /*
+    Pendientes:
+    TODO: Necesitamos que las listas se guarden en una base de datos.
+    TODO: Tenemos que hacer el método terminar día, que lo que tiene que hacer es: mostrar todos los
+    eventos y tareas que teniamos planificados para el ese día y pedirle al usuario que informe
+    si los realizó o si deben ir de nuevo al backlog. (TerminarDía)
+    TODO: Al momento de finalizar un evento debemos preguntar al usuario si lo realizó y
+    eventualmente tomar acciones sobre ello como por ejemplo preguntar por medio de notificaciones.
+    TODO: Planificar las responsabilidades del día siguiente. (PlanificarDía)
+    TODO: Tenemos que hacer el manejo de dependencias. (Guice)
+    TODO: Crear eventos cíclicos, osea eventos que se repiten distintos días en el mismo horario.
+    TODO: (Versión futura) Tener distintos calendarios en una misma agenda. Un ejemplo es que
+    tengamos un calendario de remedioS, otro de trabajo, otro personal, o mostrar todos.
+    */
 
 
-
-    //*  ------------------------- METODOS AUXILIARES ------------------------------*//
+    //*  ------------------------- MÉTODOS AUXILIARES ------------------------------*//
 
     @NonNull
     private Calendar getNextDate(Calendar fechaDeHoy) {
@@ -154,8 +170,6 @@ public class AgendaTest {
 
 
 
-    /*
-    agenda.finalizarDia
-    */
+
 }
 
