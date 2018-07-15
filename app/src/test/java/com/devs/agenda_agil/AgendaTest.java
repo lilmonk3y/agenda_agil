@@ -3,12 +3,11 @@ package com.devs.agenda_agil;
 import android.support.annotation.NonNull;
 
 import com.devs.src.DateUtil;
+
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -16,6 +15,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class AgendaTest {
+
     @Test
     public void crear_un_evento_lo_agrega_a_la_agenda(){
         Agenda agenda = new Agenda();
@@ -144,17 +144,42 @@ public class AgendaTest {
         assertTrue(tareaBaja == backlog.get(1));
         assertTrue(tareaSinPrioridad == backlog.get(2));
     }
+
+    @Test
+    public void realizar_un_evento_planificado_para_el_día_lo_debe_marcar_como_realizado(){
+        Calendar fechaDeHoy = new GregorianCalendar(2018,7,10);
+        final DateUtil dateSupplier = Mockito.mock(DateUtil.class);
+        Mockito.when(dateSupplier.getDate()).thenReturn(fechaDeHoy);
+        Agenda agenda = new Agenda(dateSupplier);
+
+        Evento eventoQueSeDebeMostrar = new Evento(fechaDeHoy, "Titulo");
+        agenda.agregar(eventoQueSeDebeMostrar);
+
+        Calendar otraFecha = new GregorianCalendar(2018,6,15);
+        Evento eventoNoMostrable = new Evento(otraFecha, "Titulo otro");
+        agenda.agregar(eventoNoMostrable);
+
+
+        agenda.realizar(eventoQueSeDebeMostrar);
+
+        assertTrue(agenda.eventos().contains(eventoNoMostrable));
+        assertFalse(agenda.eventosRealizados(fechaDeHoy).contains(eventoNoMostrable));
+        assertFalse(agenda.eventos().contains(eventoQueSeDebeMostrar));
+        assertTrue(agenda.eventosRealizados(fechaDeHoy).contains(eventoQueSeDebeMostrar));
+    }
+
+
     /*
     Pendientes:
     TODO: Necesitamos que las listas se guarden en una base de datos.
-    TODO: Tenemos que hacer el método terminar día, que lo que tiene que hacer es: mostrar todos los
+    (1) TODO: Tenemos que hacer el método terminar día, que lo que tiene que hacer es: mostrar todos los
     eventos y tareas que teniamos planificados para el ese día y pedirle al usuario que informe
     si los realizó o si deben ir de nuevo al backlog. (TerminarDía)
     TODO: Al momento de finalizar un evento debemos preguntar al usuario si lo realizó y
     eventualmente tomar acciones sobre ello como por ejemplo preguntar por medio de notificaciones.
-    TODO: Planificar las responsabilidades del día siguiente. (PlanificarDía)
+    (2) TODO: Planificar las responsabilidades del día siguiente. (PlanificarDía)
     TODO: Tenemos que hacer el manejo de dependencias. (Guice)
-    TODO: Crear eventos cíclicos, osea eventos que se repiten distintos días en el mismo horario.
+    (3) TODO: Crear eventos cíclicos, osea eventos que se repiten distintos días en el mismo horario.
     TODO: (Versión futura) Tener distintos calendarios en una misma agenda. Un ejemplo es que
     tengamos un calendario de remedioS, otro de trabajo, otro personal, o mostrar todos.
     */

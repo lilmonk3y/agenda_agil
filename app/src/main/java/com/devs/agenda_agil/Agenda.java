@@ -1,7 +1,5 @@
 package com.devs.agenda_agil;
 
-import android.support.annotation.NonNull;
-
 import com.devs.src.DateUtil;
 
 import java.util.ArrayList;
@@ -10,17 +8,19 @@ import java.util.Collections;
 import java.util.List;
 
 class Agenda {
-    List<Evento> eventos = new ArrayList<>();
-    List<Tarea> backlog = new ArrayList<>();
-    List<Tarea> historialTareas = new ArrayList<>();
-    List<TareaPlanificada> planificado = new ArrayList<>();
-    DateUtil dateSupplier = new DateUtil();
+    private List<Evento> eventos = new ArrayList<>();
+    private List<Tarea> backlog = new ArrayList<>();
+    private List<Tarea> historialTareas = new ArrayList<>();
+    private List<TareaPlanificada> planificado = new ArrayList<>();
+    private DateUtil dateSupplier;
 
     public Agenda(DateUtil dateSupplier) {
         this.dateSupplier = dateSupplier;
     }
 
-    public Agenda() { }
+    public Agenda() {
+        this.dateSupplier = new DateUtil();
+    }
 
     public void agregar(Evento evento) {
         this.eventos.add(evento);
@@ -112,5 +112,28 @@ class Agenda {
         }
 
         return obligacionesDelDia;
+    }
+
+    public void realizar(Evento evento) {
+        assert this.eventos.contains(evento);
+
+        this.eventos.remove(evento);
+        Evento eventoRealizado = new Evento(evento);
+        eventoRealizado.setRealizado(true);
+        this.eventos.add(eventoRealizado);
+    }
+
+    public List<Evento> eventosRealizados(Calendar fecha) {
+        List<Evento> eventos = new ArrayList<>();
+        for(Evento evento : this.eventos){
+            if( evento.realizado() ){
+                eventos.add(evento);
+            }
+        }
+        return eventos;
+    }
+
+    public List<Evento> eventos() {
+        return this.eventos;
     }
 }
