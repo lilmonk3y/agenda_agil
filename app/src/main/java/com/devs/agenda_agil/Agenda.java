@@ -123,7 +123,7 @@ class Agenda {
         this.eventos.add(eventoRealizado);
     }
 
-    public List<Evento> eventosRealizados(Calendar fecha) {
+    public List<Evento> eventosRealizados() {
         List<Evento> eventos = new ArrayList<>();
         for(Evento evento : this.eventos){
             if( evento.realizado() ){
@@ -135,5 +135,14 @@ class Agenda {
 
     public List<Evento> eventos() {
         return this.eventos;
+    }
+
+    public void rePlanificar(Evento evento, Calendar nuevaFecha) {
+        assert this.eventos.contains(evento);
+
+        this.eventos.remove(evento);
+        Evento eventoRePlanificado = new Evento(evento);
+        eventoRePlanificado.setFecha(nuevaFecha);
+        this.eventos.add(eventoRePlanificado);
     }
 }

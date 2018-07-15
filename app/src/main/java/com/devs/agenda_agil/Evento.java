@@ -33,7 +33,7 @@ class Evento {
         this.fecha = otro.fecha();
     }
 
-    private String titulo() {
+    public String titulo() {
         return this.titulo;
     }
 
@@ -47,5 +47,9 @@ class Evento {
 
     public void setRealizado(boolean realizado) {
         this.realizado = realizado;
+    }
+
+    public void setFecha(Calendar fecha) {
+        this.fecha = fecha;
     }
 }
