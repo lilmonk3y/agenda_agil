@@ -7,7 +7,9 @@ import com.devs.src.DateUtil;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.lang.reflect.Array;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -194,36 +196,48 @@ public class AgendaTest {
         assertEquals(nuevaFecha, expected.fecha());
     }
 
-    @Test
-    public void eventos_ciclicos(){
-        Calendar fechaDeHoy = new GregorianCalendar(2018,7,7);
-        final DateUtil dateSupplier = Mockito.mock(DateUtil.class);
-        Mockito.when(dateSupplier.getDate()).thenReturn(fechaDeHoy);
-        Agenda agenda = new Agenda(dateSupplier);
+//    @Test
+//    public void eventos_ciclicos(){
+//        Calendar fechaDeHoy = new GregorianCalendar(2018,7,7);
+//        final DateUtil dateSupplier = Mockito.mock(DateUtil.class);
+//        Mockito.when(dateSupplier.getDate()).thenReturn(fechaDeHoy);
+//        Agenda agenda = new Agenda(dateSupplier);
+//
+//
+//        EventoCiclico evento = new EventoCiclico("titulo");
+//        evento.agregarRepeticion(Calendar.MONDAY);
+//        evento.agregarRepeticion(Calendar.FRIDAY);
+//
+//
+//        Calendar expectedMonday = new GregorianCalendar(2018,7,9);
+//        Calendar expectedFriday = new GregorianCalendar(2018,7,13);
+//
+//        Calendar expectedMondayPlusOneWeek = new GregorianCalendar(2018,7,9);
+//        expectedMondayPlusOneWeek.add(Calendar.DATE,Calendar.DAY_OF_WEEK);
+//
+//        Calendar expectedFridayPlusOneWeek = new GregorianCalendar(2018,7,13);
+//        expectedFridayPlusOneWeek.add(Calendar.DATE,Calendar.DAY_OF_WEEK);
+//
+//        assertTrue(agenda.mostrarDia(expectedMonday).eventos().contains(evento));
+//        assertTrue(agenda.mostrarDia(expectedFriday).eventos().contains(evento));
+//        assertTrue(agenda.mostrarDia(expectedMondayPlusOneWeek).eventos().contains(evento));
+//
+//        Calendar previousMondayOfCreationDate = new GregorianCalendar(2018,7,7);
+//        previousMondayOfCreationDate.add(Calendar.DATE,-Calendar.DAY_OF_WEEK);
+//
+//        assertFalse(agenda.mostrarDia(previousMondayOfCreationDate).eventos().contains(evento));
+//    }
 
+    @Test public void agrego_un_evento_ciclico_y_este_se_repite_cada_una_semana(){
+        Calendar fecha = new GregorianCalendar();
+//        System.out.print(fecha.get(fecha.DAY_OF_WEEK));
+        Agenda agenda = new Agenda();
+        Evento evento = new Evento(fecha, "titulo", 4);
+        agenda.agregar(evento);
 
-        EventoCiclico evento = new EventoCiclico("titulo");
-        evento.agregarRepeticion(Calendar.MONDAY);
-        evento.agregarRepeticion(Calendar.FRIDAY);
+        evento.agregarRepeticion();
 
-
-        Calendar expectedMonday = new GregorianCalendar(2018,7,9);
-        Calendar expectedFriday = new GregorianCalendar(2018,7,13);
-
-        Calendar expectedMondayPlusOneWeek = new GregorianCalendar(2018,7,9);
-        expectedMondayPlusOneWeek.add(Calendar.DATE,Calendar.DAY_OF_WEEK);
-
-        Calendar expectedFridayPlusOneWeek = new GregorianCalendar(2018,7,13);
-        expectedFridayPlusOneWeek.add(Calendar.DATE,Calendar.DAY_OF_WEEK);
-
-        assertTrue(agenda.mostrarDia(expectedMonday).eventos().contains(evento));
-        assertTrue(agenda.mostrarDia(expectedFriday).eventos().contains(evento));
-        assertTrue(agenda.mostrarDia(expectedMondayPlusOneWeek).eventos().contains(evento));
-
-        Calendar previousMondayOfCreationDate = new GregorianCalendar(2018,7,7);
-        previousMondayOfCreationDate.add(Calendar.DATE,-Calendar.DAY_OF_WEEK);
-
-        assertFalse(agenda.mostrarDia(previousMondayOfCreationDate).eventos().contains(evento));
+        assertTrue(agenda.eventos().contains(evento.fecha().DAY_OF_MONTH==25));
     }
 
 

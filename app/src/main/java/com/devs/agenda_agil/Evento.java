@@ -1,5 +1,6 @@
 package com.devs.agenda_agil;
 
+import java.lang.reflect.Array;
 import java.util.Calendar;
 
 class Evento {
@@ -25,6 +26,10 @@ class Evento {
         this.fecha = fechaDeHoy;
         this.titulo = titulo;
         this.realizado = false;
+    }
+
+    public Evento(Calendar fechaDeHoy, String titulo, int diaDeRepeticion){
+
     }
 
     public Evento(Evento otro) {
