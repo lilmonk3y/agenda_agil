@@ -7,9 +7,8 @@ import com.devs.src.DateUtil;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -230,14 +229,16 @@ public class AgendaTest {
 
     @Test public void agrego_un_evento_ciclico_y_este_se_repite_cada_una_semana(){
         Calendar fecha = new GregorianCalendar();
-//        System.out.print(fecha.get(fecha.DAY_OF_WEEK));
+        final DateUtil dateSupplier = Mockito.mock(DateUtil.class);
+        Mockito.when(dateSupplier.getDate()).thenReturn(fecha);
         Agenda agenda = new Agenda();
-        Evento evento = new Evento(fecha, "titulo", 4);
+        Evento evento = new Evento(fecha, "titulo", new int[]{4});
         agenda.agregar(evento);
 
-        evento.agregarRepeticion();
+        agenda.agregarRepeticionesDeEvento(evento);
 
-        assertTrue(agenda.eventos().contains(evento.fecha().DAY_OF_MONTH==25));
+        assertEquals(fecha.get(fecha.DAY_OF_MONTH), agenda.eventos().get(0).fecha().get(fecha.DAY_OF_MONTH));
+        assertEquals(fecha.get(fecha.DAY_OF_MONTH)+7, agenda.eventos().get(1).fecha().get(fecha.DAY_OF_MONTH));
     }
 
 

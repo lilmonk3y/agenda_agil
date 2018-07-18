@@ -5,6 +5,7 @@ import com.devs.src.DateUtil;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 class Agenda {
@@ -144,5 +145,16 @@ class Agenda {
         Evento eventoRePlanificado = new Evento(evento);
         eventoRePlanificado.setFecha(nuevaFecha);
         this.eventos.add(eventoRePlanificado);
+    }
+
+    public void agregarRepeticionesDeEvento(Evento otro) {
+        assert this.eventos.contains(otro);
+
+        Evento repeticionDeEvento = new Evento(otro);
+        int nuevaFechaDeRepeticion = otro.fecha().get(otro.fecha().DAY_OF_MONTH);
+
+        repeticionDeEvento.setFecha(new GregorianCalendar(2018,7, nuevaFechaDeRepeticion+7));
+
+        agregar(repeticionDeEvento);
     }
 }
