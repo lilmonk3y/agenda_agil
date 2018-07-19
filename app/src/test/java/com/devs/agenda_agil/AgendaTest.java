@@ -3,19 +3,21 @@ package com.devs.agenda_agil;
 import android.support.annotation.NonNull;
 
 import com.devs.src.DateUtil;
+
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class AgendaTest {
+
     @Test
     public void crear_un_evento_lo_agrega_a_la_agenda(){
         Agenda agenda = new Agenda();
@@ -144,19 +146,115 @@ public class AgendaTest {
         assertTrue(tareaBaja == backlog.get(1));
         assertTrue(tareaSinPrioridad == backlog.get(2));
     }
+
+    @Test
+    public void realizar_un_evento_planificado_para_el_día_lo_debe_marcar_como_realizado(){
+        Calendar fechaDeHoy = new GregorianCalendar(2018,7,10);
+        final DateUtil dateSupplier = Mockito.mock(DateUtil.class);
+        Mockito.when(dateSupplier.getDate()).thenReturn(fechaDeHoy);
+        Agenda agenda = new Agenda(dateSupplier);
+
+        Evento eventoQueSeDebeMostrar = new Evento(fechaDeHoy, "Titulo");
+        agenda.agregar(eventoQueSeDebeMostrar);
+
+        Calendar otraFecha = new GregorianCalendar(2018,6,15);
+        Evento eventoNoMostrable = new Evento(otraFecha, "Titulo otro");
+        agenda.agregar(eventoNoMostrable);
+
+
+        agenda.realizar(eventoQueSeDebeMostrar);
+
+        assertEquals(2,agenda.eventos().size());
+        assertTrue(agenda.eventos().contains(eventoNoMostrable));
+        assertFalse(agenda.eventosRealizados().contains(eventoNoMostrable));
+        assertFalse(agenda.eventos().contains(eventoQueSeDebeMostrar));
+        List<Evento> eventosRealizados = agenda.eventosRealizados();
+        assertEquals(1,agenda.eventosRealizados().size());
+        Evento eventoRealizado = eventosRealizados.get(0);
+        assertEquals(eventoQueSeDebeMostrar.titulo(), eventoRealizado.titulo() );
+        assertEquals(eventoQueSeDebeMostrar.fecha(), eventoRealizado.fecha() );
+    }
+
+    @Test
+    public void un_evento_que_no_se_realizó_lo_queremos_re_planificar(){
+        Calendar fechaDeHoy = new GregorianCalendar(2018,7,10);
+        final DateUtil dateSupplier = Mockito.mock(DateUtil.class);
+        Mockito.when(dateSupplier.getDate()).thenReturn(fechaDeHoy);
+        Agenda agenda = new Agenda(dateSupplier);
+
+        Evento evento = new Evento(fechaDeHoy, "Titulo");
+        agenda.agregar(evento);
+
+
+        Calendar nuevaFecha = new GregorianCalendar(2018,8,10);
+        agenda.rePlanificar(evento, nuevaFecha);
+
+        assertEquals(1, agenda.eventos().size());
+        Evento expected = agenda.eventos().get(0);
+        assertEquals(evento.titulo(),expected.titulo());
+        assertEquals(nuevaFecha, expected.fecha());
+    }
+
+//    @Test
+//    public void eventos_ciclicos(){
+//        Calendar fechaDeHoy = new GregorianCalendar(2018,7,7);
+//        final DateUtil dateSupplier = Mockito.mock(DateUtil.class);
+//        Mockito.when(dateSupplier.getDate()).thenReturn(fechaDeHoy);
+//        Agenda agenda = new Agenda(dateSupplier);
+//
+//
+//        EventoCiclico evento = new EventoCiclico("titulo");
+//        evento.agregarRepeticion(Calendar.MONDAY);
+//        evento.agregarRepeticion(Calendar.FRIDAY);
+//
+//
+//        Calendar expectedMonday = new GregorianCalendar(2018,7,9);
+//        Calendar expectedFriday = new GregorianCalendar(2018,7,13);
+//
+//        Calendar expectedMondayPlusOneWeek = new GregorianCalendar(2018,7,9);
+//        expectedMondayPlusOneWeek.add(Calendar.DATE,Calendar.DAY_OF_WEEK);
+//
+//        Calendar expectedFridayPlusOneWeek = new GregorianCalendar(2018,7,13);
+//        expectedFridayPlusOneWeek.add(Calendar.DATE,Calendar.DAY_OF_WEEK);
+//
+//        assertTrue(agenda.mostrarDia(expectedMonday).eventos().contains(evento));
+//        assertTrue(agenda.mostrarDia(expectedFriday).eventos().contains(evento));
+//        assertTrue(agenda.mostrarDia(expectedMondayPlusOneWeek).eventos().contains(evento));
+//
+//        Calendar previousMondayOfCreationDate = new GregorianCalendar(2018,7,7);
+//        previousMondayOfCreationDate.add(Calendar.DATE,-Calendar.DAY_OF_WEEK);
+//
+//        assertFalse(agenda.mostrarDia(previousMondayOfCreationDate).eventos().contains(evento));
+//    }
+
+    @Test public void agrego_un_evento_ciclico_y_este_se_repite_cada_una_semana(){
+        final Calendar fecha = new GregorianCalendar().getInstance();
+
+        Agenda agenda = new Agenda();
+        Evento evento = new Evento(fecha, "titulo");
+        agenda.agregar(evento);
+
+        agenda.agregarRepeticionesDeEvento(evento);
+
+        assertEquals(agenda.eventos().get(0).fecha().get(Calendar.DAY_OF_YEAR)+7, agenda.eventos().get(1).fecha().get(Calendar.DAY_OF_YEAR));
+    }
+
+
     /*
     Pendientes:
     TODO: Necesitamos que las listas se guarden en una base de datos.
-    TODO: Tenemos que hacer el método terminar día, que lo que tiene que hacer es: mostrar todos los
-    eventos y tareas que teniamos planificados para el ese día y pedirle al usuario que informe
-    si los realizó o si deben ir de nuevo al backlog. (TerminarDía)
-    TODO: Al momento de finalizar un evento debemos preguntar al usuario si lo realizó y
+    TODO: (Más adelante) Al momento de finalizar un evento debemos preguntar al usuario si lo realizó y
     eventualmente tomar acciones sobre ello como por ejemplo preguntar por medio de notificaciones.
-    TODO: Planificar las responsabilidades del día siguiente. (PlanificarDía)
     TODO: Tenemos que hacer el manejo de dependencias. (Guice)
-    TODO: Crear eventos cíclicos, osea eventos que se repiten distintos días en el mismo horario.
+    (3) TODO: Crear eventos cíclicos, osea eventos que se repiten distintos días en el mismo horario.
     TODO: (Versión futura) Tener distintos calendarios en una misma agenda. Un ejemplo es que
     tengamos un calendario de remedioS, otro de trabajo, otro personal, o mostrar todos.
+
+    REALIZADOS:
+    DONE: Tenemos que hacer el método terminar día, que lo que tiene que hacer es: mostrar todos los
+    eventos y tareas que teniamos planificados para el ese día y pedirle al usuario que informe
+    si los realizó o si deben ir de nuevo al backlog. (TerminarDía)
+    DONE: Planificar las responsabilidades del día siguiente. (PlanificarDía)
     */
 
 

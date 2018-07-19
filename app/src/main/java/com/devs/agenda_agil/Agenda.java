@@ -1,26 +1,27 @@
 package com.devs.agenda_agil;
 
-import android.support.annotation.NonNull;
-
 import com.devs.src.DateUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 class Agenda {
-    List<Evento> eventos = new ArrayList<>();
-    List<Tarea> backlog = new ArrayList<>();
-    List<Tarea> historialTareas = new ArrayList<>();
-    List<TareaPlanificada> planificado = new ArrayList<>();
-    DateUtil dateSupplier = new DateUtil();
+    private List<Evento> eventos = new ArrayList<>();
+    private List<Tarea> backlog = new ArrayList<>();
+    private List<Tarea> historialTareas = new ArrayList<>();
+    private List<TareaPlanificada> planificado = new ArrayList<>();
+    private DateUtil dateSupplier;
 
     public Agenda(DateUtil dateSupplier) {
         this.dateSupplier = dateSupplier;
     }
 
-    public Agenda() { }
+    public Agenda() {
+        this.dateSupplier = new DateUtil();
+    }
 
     public void agregar(Evento evento) {
         this.eventos.add(evento);
@@ -112,5 +113,47 @@ class Agenda {
         }
 
         return obligacionesDelDia;
+    }
+
+    public void realizar(Evento evento) {
+        assert this.eventos.contains(evento);
+
+        this.eventos.remove(evento);
+        Evento eventoRealizado = new Evento(evento);
+        eventoRealizado.setRealizado(true);
+        this.eventos.add(eventoRealizado);
+    }
+
+    public List<Evento> eventosRealizados() {
+        List<Evento> eventos = new ArrayList<>();
+        for(Evento evento : this.eventos){
+            if( evento.realizado() ){
+                eventos.add(evento);
+            }
+        }
+        return eventos;
+    }
+
+    public List<Evento> eventos() {
+        return this.eventos;
+    }
+
+    public void rePlanificar(Evento evento, Calendar nuevaFecha) {
+        assert this.eventos.contains(evento);
+
+        this.eventos.remove(evento);
+        Evento eventoRePlanificado = new Evento(evento);
+        eventoRePlanificado.setFecha(nuevaFecha);
+        this.eventos.add(eventoRePlanificado);
+    }
+
+    public void agregarRepeticionesDeEvento(Evento otro) {
+        assert this.eventos.contains(otro);
+        Evento repeticionDeEvento = new Evento(otro);
+        Calendar fechaNueva = (Calendar) otro.fecha().clone();
+        fechaNueva.add(Calendar.DAY_OF_WEEK_IN_MONTH, 1);
+        repeticionDeEvento.setFecha(fechaNueva);
+
+        agregar(repeticionDeEvento);
     }
 }
