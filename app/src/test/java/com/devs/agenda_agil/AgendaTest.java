@@ -228,17 +228,15 @@ public class AgendaTest {
 //    }
 
     @Test public void agrego_un_evento_ciclico_y_este_se_repite_cada_una_semana(){
-        Calendar fecha = new GregorianCalendar();
-        final DateUtil dateSupplier = Mockito.mock(DateUtil.class);
-        Mockito.when(dateSupplier.getDate()).thenReturn(fecha);
+        final Calendar fecha = new GregorianCalendar().getInstance();
+
         Agenda agenda = new Agenda();
-        Evento evento = new Evento(fecha, "titulo", new int[]{4});
+        Evento evento = new Evento(fecha, "titulo");
         agenda.agregar(evento);
 
         agenda.agregarRepeticionesDeEvento(evento);
 
-        assertEquals(fecha.get(fecha.DAY_OF_MONTH), agenda.eventos().get(0).fecha().get(fecha.DAY_OF_MONTH));
-        assertEquals(fecha.get(fecha.DAY_OF_MONTH)+7, agenda.eventos().get(1).fecha().get(fecha.DAY_OF_MONTH));
+        assertEquals(agenda.eventos().get(0).fecha().get(Calendar.DAY_OF_YEAR)+7, agenda.eventos().get(1).fecha().get(Calendar.DAY_OF_YEAR));
     }
 
 

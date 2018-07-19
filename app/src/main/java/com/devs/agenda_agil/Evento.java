@@ -28,12 +28,6 @@ class Evento {
         this.realizado = false;
     }
 
-    public Evento(Calendar fechaDeHoy, String titulo, int[] diaDeRepeticion){
-        this.fecha = fechaDeHoy;
-        this.titulo = titulo;
-        this.realizado = false;
-    }
-
     public Evento(Evento otro) {
         this.realizado = otro.realizado();
         this.titulo = otro.titulo();

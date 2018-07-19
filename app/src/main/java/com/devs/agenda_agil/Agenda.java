@@ -149,11 +149,10 @@ class Agenda {
 
     public void agregarRepeticionesDeEvento(Evento otro) {
         assert this.eventos.contains(otro);
-
         Evento repeticionDeEvento = new Evento(otro);
-        int nuevaFechaDeRepeticion = otro.fecha().get(otro.fecha().DAY_OF_MONTH);
-
-        repeticionDeEvento.setFecha(new GregorianCalendar(2018,7, nuevaFechaDeRepeticion+7));
+        Calendar fechaNueva = (Calendar) otro.fecha().clone();
+        fechaNueva.add(Calendar.DAY_OF_WEEK_IN_MONTH, 1);
+        repeticionDeEvento.setFecha(fechaNueva);
 
         agregar(repeticionDeEvento);
     }
