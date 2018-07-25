@@ -2,6 +2,7 @@ package com.devs.agenda_agil;
 
 import com.devs.src.DateUtil;
 
+import java.util.AbstractSequentialList;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -24,7 +25,44 @@ class Agenda {
     }
 
     public void agregar(Evento evento) {
-        this.eventos.add(evento);
+        if (evento.getDiasDeRepeticion().length == 0){
+            asignarHash(evento);
+            this.eventos.add(evento);
+        } else {
+            asignarHash(evento);
+            List<Evento> repeticiones = agregarRepeticiones(evento);
+            this.eventos.addAll(repeticiones);
+        }
+    }
+
+    public List<Evento> agregarRepeticiones(Evento evento) {
+        List<Evento> repeticiones = new ArrayList<>();
+        for (int f = 0 ; f <= 365; f++){
+            Calendar fecha = new GregorianCalendar(2018,06,24);
+            fecha.add(Calendar.DAY_OF_YEAR, f);
+            for (int i : evento.getDiasDeRepeticion()) {
+                if (i == fecha.get(Calendar.DAY_OF_WEEK)) {
+                    Evento evento1 = new Evento(evento);
+                    evento1.setFecha(fecha);
+                    repeticiones.add(evento1);
+                }
+            }
+        }
+        return repeticiones;
+    }
+
+    private void asignarHash(Evento evento) {
+        if (this.eventos.size()==0 && evento.getHashDeEvento()==0) {
+            evento.setHashDeEvento(1);
+        } else if (this.eventos.size()!=0 && evento.getHashDeEvento()==0){
+            int hashDeEventoNuevo = hashMasAlto()+1;
+            evento.setHashDeEvento(hashDeEventoNuevo);
+        }
+    }
+
+    public int hashMasAlto() {
+        Collections.sort(this.eventos);
+        return this.eventos.get(eventos().size()-1).getHashDeEvento();
     }
 
     public void eliminar(Evento evento) {
@@ -145,16 +183,5 @@ class Agenda {
         Evento eventoRePlanificado = new Evento(evento);
         eventoRePlanificado.setFecha(nuevaFecha);
         this.eventos.add(eventoRePlanificado);
-    }
-
-    public void agregarRepeticionesDeEvento(Evento otro) {
-        assert this.eventos.contains(otro);
-
-        Evento repeticionDeEvento = new Evento(otro);
-        int nuevaFechaDeRepeticion = otro.fecha().get(otro.fecha().DAY_OF_MONTH);
-
-        repeticionDeEvento.setFecha(new GregorianCalendar(2018,7, nuevaFechaDeRepeticion+7));
-
-        agregar(repeticionDeEvento);
     }
 }
