@@ -232,23 +232,16 @@ public class AgendaTest {
 //    }
 
     @Test public void agrego_un_evento_y_se_le_asigna_un_hash_si_el_evento_tiene_un_padre_comparte_el_mismo_hash(){
-        Calendar fecha = new GregorianCalendar().getInstance();
+        Calendar fecha = new GregorianCalendar();
         Agenda agenda = new Agenda();
         Evento evento = new Evento(fecha, "hola");
         Evento eventoDistinto = new Evento(fecha, "casi hola, pero no.");
         Evento eventoDistinto2 = new Evento(fecha, "casi hola, pero no.");
-
-        // evento en posición 0.
         agenda.agregar(evento);
-
-        // eventos en posición 1 y 2 con distinto hash
         agenda.agregar(eventoDistinto);
         agenda.agregar(eventoDistinto2);
 
-        // creo el evento a partir de "evento" o después de agendarlo (si no, no tiene hash asignado).
         Evento evento1 = new Evento(evento);
-
-        // eventos en posición 3 y 4 creados a partir de evento y con el mismo hash.
         agenda.agregar(evento1);
         agenda.agregar(evento1);
 
@@ -266,9 +259,7 @@ public class AgendaTest {
 
         agenda.agregar(evento);
 
-        // ---------------- Asserts ----------------- //
-        assertEquals(agenda.eventos().get(0).fecha().get(Calendar.DAY_OF_WEEK), agenda.eventos().get(3).fecha().get(Calendar.DAY_OF_WEEK));
-        assertEquals(agenda.eventos().get(0).fecha().get(Calendar.DAY_OF_WEEK), agenda.eventos().get(6).fecha().get(Calendar.DAY_OF_WEEK));
+        assertEquals(agenda.eventos().get(1).fecha().get(Calendar.DAY_OF_WEEK), agenda.eventos().get(agenda.eventos().get(0).getDiasDeRepeticion().length+1).fecha().get(Calendar.DAY_OF_WEEK));
         assertNotEquals(agenda.eventos().get(0).fecha().get(Calendar.DAY_OF_YEAR), agenda.eventos().get(3).fecha().get(Calendar.DAY_OF_YEAR));
         assertNotEquals(agenda.eventos().get(0).fecha().get(Calendar.DAY_OF_YEAR), agenda.eventos().get(6).fecha().get(Calendar.DAY_OF_YEAR));
     }

@@ -30,6 +30,7 @@ class Agenda {
             this.eventos.add(evento);
         } else {
             asignarHash(evento);
+            this.eventos.add(evento);
             List<Evento> repeticiones = agregarRepeticiones(evento);
             this.eventos.addAll(repeticiones);
         }
@@ -38,7 +39,8 @@ class Agenda {
     public List<Evento> agregarRepeticiones(Evento evento) {
         List<Evento> repeticiones = new ArrayList<>();
         for (int f = 0 ; f <= 365; f++){
-            Calendar fecha = new GregorianCalendar(2018,06,24);
+            Calendar fecha = new GregorianCalendar(evento.fecha().get(Calendar.YEAR),
+                    evento.fecha().get(Calendar.MONTH), evento.fecha().get(Calendar.DAY_OF_MONTH));
             fecha.add(Calendar.DAY_OF_YEAR, f);
             for (int i : evento.getDiasDeRepeticion()) {
                 if (i == fecha.get(Calendar.DAY_OF_WEEK)) {
