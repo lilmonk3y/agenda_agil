@@ -1,29 +1,70 @@
 package com.devs.agenda_agil;
 
-import android.support.annotation.NonNull;
-
 import com.devs.src.DateUtil;
 
+import java.util.AbstractSequentialList;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 class Agenda {
-    List<Evento> eventos = new ArrayList<>();
-    List<Tarea> backlog = new ArrayList<>();
-    List<Tarea> historialTareas = new ArrayList<>();
-    List<TareaPlanificada> planificado = new ArrayList<>();
-    DateUtil dateSupplier = new DateUtil();
+    private List<Evento> eventos = new ArrayList<>();
+    private List<Tarea> backlog = new ArrayList<>();
+    private List<Tarea> historialTareas = new ArrayList<>();
+    private List<TareaPlanificada> planificado = new ArrayList<>();
+    private DateUtil dateSupplier;
 
     public Agenda(DateUtil dateSupplier) {
         this.dateSupplier = dateSupplier;
     }
 
-    public Agenda() { }
+    public Agenda() {
+        this.dateSupplier = new DateUtil();
+    }
 
     public void agregar(Evento evento) {
-        this.eventos.add(evento);
+        if (evento.getDiasDeRepeticion().length == 0){
+            asignarHash(evento);
+            this.eventos.add(evento);
+        } else {
+            asignarHash(evento);
+            this.eventos.add(evento);
+            List<Evento> repeticiones = agregarRepeticiones(evento);
+            this.eventos.addAll(repeticiones);
+        }
+    }
+
+    public List<Evento> agregarRepeticiones(Evento evento) {
+        List<Evento> repeticiones = new ArrayList<>();
+        for (int f = 0 ; f <= 365; f++){
+            Calendar fecha = new GregorianCalendar(evento.fecha().get(Calendar.YEAR),
+                    evento.fecha().get(Calendar.MONTH), evento.fecha().get(Calendar.DAY_OF_MONTH));
+            fecha.add(Calendar.DAY_OF_YEAR, f);
+            for (int i : evento.getDiasDeRepeticion()) {
+                if (i == fecha.get(Calendar.DAY_OF_WEEK)) {
+                    Evento evento1 = new Evento(evento);
+                    evento1.setFecha(fecha);
+                    repeticiones.add(evento1);
+                }
+            }
+        }
+        return repeticiones;
+    }
+
+    private void asignarHash(Evento evento) {
+        if (this.eventos.size()==0 && evento.getHashDeEvento()==0) {
+            evento.setHashDeEvento(1);
+        } else if (this.eventos.size()!=0 && evento.getHashDeEvento()==0){
+            int hashDeEventoNuevo = hashMasAlto()+1;
+            evento.setHashDeEvento(hashDeEventoNuevo);
+        }
+    }
+
+    public int hashMasAlto() {
+        Collections.sort(this.eventos);
+        return this.eventos.get(eventos().size()-1).getHashDeEvento();
     }
 
     public void eliminar(Evento evento) {
@@ -112,5 +153,37 @@ class Agenda {
         }
 
         return obligacionesDelDia;
+    }
+
+    public void realizar(Evento evento) {
+        assert this.eventos.contains(evento);
+
+        this.eventos.remove(evento);
+        Evento eventoRealizado = new Evento(evento);
+        eventoRealizado.setRealizado(true);
+        this.eventos.add(eventoRealizado);
+    }
+
+    public List<Evento> eventosRealizados() {
+        List<Evento> eventos = new ArrayList<>();
+        for(Evento evento : this.eventos){
+            if( evento.realizado() ){
+                eventos.add(evento);
+            }
+        }
+        return eventos;
+    }
+
+    public List<Evento> eventos() {
+        return this.eventos;
+    }
+
+    public void rePlanificar(Evento evento, Calendar nuevaFecha) {
+        assert this.eventos.contains(evento);
+
+        this.eventos.remove(evento);
+        Evento eventoRePlanificado = new Evento(evento);
+        eventoRePlanificado.setFecha(nuevaFecha);
+        this.eventos.add(eventoRePlanificado);
     }
 }
