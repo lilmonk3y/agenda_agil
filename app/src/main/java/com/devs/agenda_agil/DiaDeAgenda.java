@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 class DiaDeAgenda {
-    List<Evento> eventos = new ArrayList<>();
-    List<TareaPlanificada> tareas = new ArrayList<>();
+    private List<Evento> eventos = new ArrayList<>();
+    private List<TareaPlanificada> tareas = new ArrayList<>();
 
     public void add(Evento evento) {
         this.eventos.add(evento);

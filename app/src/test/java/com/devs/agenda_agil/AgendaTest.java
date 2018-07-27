@@ -3,21 +3,14 @@ package com.devs.agenda_agil;
 import android.support.annotation.NonNull;
 
 import com.devs.src.DateUtil;
-
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 public class AgendaTest {
@@ -231,37 +224,27 @@ public class AgendaTest {
 //        assertFalse(agenda.mostrarDia(previousMondayOfCreationDate).eventos().contains(evento));
 //    }
 
-    @Test public void agrego_un_evento_y_se_le_asigna_un_hash_si_el_evento_tiene_un_padre_comparte_el_mismo_hash(){
-        Calendar fecha = new GregorianCalendar();
+    @Test public void agrego_un_evento_ciclico(){
+        Calendar fecha = new GregorianCalendar().getInstance();
+        Calendar fechaUnaSemanaAntesDelEvento = new GregorianCalendar(fecha.get(Calendar.YEAR), fecha.get(Calendar.MONTH),fecha.get(Calendar.DAY_OF_MONTH));
+        fechaUnaSemanaAntesDelEvento.add(Calendar.WEEK_OF_MONTH,-1);
         Agenda agenda = new Agenda();
-        Evento evento = new Evento(fecha, "hola");
-        Evento eventoDistinto = new Evento(fecha, "casi hola, pero no.");
-        Evento eventoDistinto2 = new Evento(fecha, "casi hola, pero no.");
-        agenda.agregar(evento);
-        agenda.agregar(eventoDistinto);
-        agenda.agregar(eventoDistinto2);
 
-        Evento evento1 = new Evento(evento);
-        agenda.agregar(evento1);
-        agenda.agregar(evento1);
+        int[] diasDeRepeticion = {Calendar.MONDAY, Calendar.THURSDAY, Calendar.SATURDAY};
+        Tiempo periodoEntreRepeticiones = Tiempo.SEMANA;
+        Tiempo.Intervalo intervaloDelPeriodo = Tiempo.Intervalo.TRES;
+        Calendar fechaFinalDeRepeticiones = new GregorianCalendar(fecha.get(Calendar.YEAR)+1, fecha.get(Calendar.MONTH), fecha.get(Calendar.DAY_OF_MONTH));
 
-        assertEquals(agenda.eventos().get(0).getHashDeEvento(), agenda.eventos().get(3).getHashDeEvento());
-        assertEquals(agenda.eventos().get(0).getHashDeEvento(), agenda.eventos().get(4).getHashDeEvento());
-        assertNotEquals(agenda.eventos().get(0).getHashDeEvento(), agenda.eventos().get(1).getHashDeEvento());
-        assertNotEquals(agenda.eventos().get(0).getHashDeEvento(), agenda.eventos().get(2).getHashDeEvento());
-    }
+        EventoCiclico eventoCiclico01 = new EventoCiclico(fecha, fechaFinalDeRepeticiones, "titulo", periodoEntreRepeticiones, intervaloDelPeriodo);
+        agenda.agregar(eventoCiclico01);
+        EventoCiclico eventoCiclico02 = new EventoCiclico(fecha, fechaFinalDeRepeticiones, "titulo", diasDeRepeticion);
 
-    @Test public void agrego_un_evento_ciclico_y_este_se_repite_cada_una_semana_en_los_dias_de_repeticion(){
-        Calendar fecha = new GregorianCalendar();
-        int[] diasDeRepeticion = {1,4,6}; // días en los que se va a repetir (0 - 6) 0 = domingo
-        Agenda agenda = new Agenda();
-        Evento evento = new Evento(fecha,"titulo",diasDeRepeticion);
+        int dia_del_año_del_en_el_que_debe_haber_un_evento = agenda.mostrarDia(fecha).eventos().size();
+        int dia_del_año_en_el_que_no_debe_haber_eventos = agenda.mostrarDia(fechaUnaSemanaAntesDelEvento).eventos().size();
 
-        agenda.agregar(evento);
-
-        assertEquals(agenda.eventos().get(1).fecha().get(Calendar.DAY_OF_WEEK), agenda.eventos().get(agenda.eventos().get(0).getDiasDeRepeticion().length+1).fecha().get(Calendar.DAY_OF_WEEK));
-        assertNotEquals(agenda.eventos().get(0).fecha().get(Calendar.DAY_OF_YEAR), agenda.eventos().get(3).fecha().get(Calendar.DAY_OF_YEAR));
-        assertNotEquals(agenda.eventos().get(0).fecha().get(Calendar.DAY_OF_YEAR), agenda.eventos().get(6).fecha().get(Calendar.DAY_OF_YEAR));
+        assertTrue(agenda.eventosCiclicos().contains(eventoCiclico01));
+        assertEquals(1, dia_del_año_del_en_el_que_debe_haber_un_evento);
+        assertEquals(0, dia_del_año_en_el_que_no_debe_haber_eventos);
     }
 
 
@@ -290,9 +273,5 @@ public class AgendaTest {
         fechaDeHoy.add(Calendar.DATE, 1);
         return fechaDeHoy;
     }
-
-
-
-
 }
 
