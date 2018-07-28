@@ -1,6 +1,7 @@
 package com.devs.agenda_agil;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 class Evento {
     private String titulo;
@@ -33,6 +34,12 @@ class Evento {
         this.fecha = otro.fecha();
     }
 
+    public Evento(String titulo) {
+        this.titulo = titulo;
+        this.realizado = false;
+        this.fecha = null;
+    }
+
     public String titulo() {
         return this.titulo;
     }
@@ -51,5 +58,21 @@ class Evento {
 
     public void setFecha(Calendar fecha) {
         this.fecha = fecha;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Evento evento = (Evento) o;
+        return Objects.equals(titulo, evento.titulo) &&
+                Objects.equals(fecha, evento.fecha) &&
+                Objects.equals(realizado, evento.realizado);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 }

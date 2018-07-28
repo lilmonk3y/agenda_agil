@@ -13,6 +13,7 @@ class Agenda {
     private List<Tarea> historialTareas = new ArrayList<>();
     private List<TareaPlanificada> planificado = new ArrayList<>();
     private DateUtil dateSupplier;
+    private List<EventoCiclico> reglasDeEventosCiclicos = new ArrayList<>();
 
     public Agenda(DateUtil dateSupplier) {
         this.dateSupplier = dateSupplier;
@@ -111,8 +112,33 @@ class Agenda {
             }
         }
 
+        for(EventoCiclico eventoCiclico : this.reglasDeEventosCiclicos){
+            reglaParaDiasDeSemana(diaAMostrar, obligacionesDelDia, eventoCiclico);
+            reglaParaDiasDeMes(diaAMostrar, obligacionesDelDia, eventoCiclico);
+        }
+
         return obligacionesDelDia;
     }
+
+    private void reglaParaDiasDeMes(Calendar diaAMostrar, DiaDeAgenda obligacionesDelDia, EventoCiclico eventoCiclico) {
+        if(esPosteriorA(diaAMostrar,eventoCiclico.getDiaDeInicio()) && diaAMostrar.get(Calendar.DAY_OF_MONTH) == eventoCiclico.getRepiteMensual()){
+            obligacionesDelDia.add(new Evento(eventoCiclico.getTitulo()));
+        }
+    }
+
+    private void reglaParaDiasDeSemana(Calendar diaAMostrar, DiaDeAgenda obligacionesDelDia, EventoCiclico eventoCiclico) {
+        for(int dia : eventoCiclico.getRepiteSemanal()){
+            if(esPosteriorA(diaAMostrar,eventoCiclico.getDiaDeInicio()) && (diaAMostrar.get(Calendar.DAY_OF_WEEK) == dia)){
+                obligacionesDelDia.add(new Evento(eventoCiclico.getTitulo()));
+            }
+        }
+    }
+
+    public static boolean esPosteriorA(Calendar diaAMostrar,Calendar diaDeCreacion) {
+        return diaAMostrar.get(Calendar.YEAR) > diaDeCreacion.get(Calendar.YEAR) || (diaAMostrar.get(Calendar.YEAR) == diaDeCreacion.get(Calendar.YEAR) && diaAMostrar.get(Calendar.DAY_OF_YEAR) >= diaDeCreacion.get(Calendar.DAY_OF_YEAR) );
+    }
+
+
 
     public void realizar(Evento evento) {
         assert this.eventos.contains(evento);
@@ -144,5 +170,9 @@ class Agenda {
         Evento eventoRePlanificado = new Evento(evento);
         eventoRePlanificado.setFecha(nuevaFecha);
         this.eventos.add(eventoRePlanificado);
+    }
+
+    public void agregar(EventoCiclico evento) {
+        this.reglasDeEventosCiclicos.add(new EventoCiclico(evento.getTitulo(), this.dateSupplier.getDate(), evento.getRepiteSemanal(), evento.getRepiteMensual()));
     }
 }

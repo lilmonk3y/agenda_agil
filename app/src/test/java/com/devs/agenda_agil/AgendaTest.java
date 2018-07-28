@@ -195,37 +195,102 @@ public class AgendaTest {
     }
 
     @Test
-    public void eventos_ciclicos(){
-        Calendar fechaDeHoy = new GregorianCalendar(2018,7,7);
+    public void agregoUnEventoCiclicoParaLunesYViernes_esperoQueTodosLosLunesYViernesMuestrenAlEventoEnSusObligaciones(){
+        Calendar fechaDeHoy = new GregorianCalendar(2018,7,2);
         final DateUtil dateSupplier = Mockito.mock(DateUtil.class);
         Mockito.when(dateSupplier.getDate()).thenReturn(fechaDeHoy);
         Agenda agenda = new Agenda(dateSupplier);
 
+        EventoCiclico evento = new EventoCiclico("titulo");
+        evento.agregarRepeticion(Calendar.MONDAY);
+        evento.agregarRepeticion(Calendar.FRIDAY);
+        agenda.agregar(evento);
+
+        Calendar expectedMonday = new GregorianCalendar(2018,7,6);
+        Calendar expectedFriday = new GregorianCalendar(2018,7,10);
+        Calendar expectedMondayPlusOneWeek = new GregorianCalendar(2018,7,13);
+        expectedMondayPlusOneWeek.add(Calendar.DATE,Calendar.DAY_OF_WEEK);
+        Evento expectedEvento = new Evento("titulo");
+        List<Evento> expectedEventos = agenda.mostrarDia(expectedMonday).eventos();
+        assertTrue(expectedEventos.contains(expectedEvento));
+        assertTrue(agenda.mostrarDia(expectedFriday).eventos().contains(expectedEvento));
+        assertTrue(agenda.mostrarDia(expectedMondayPlusOneWeek).eventos().contains(expectedEvento));
+
+    }
+
+    @Test
+    public void agregoUnEventoCiclicoConRepeticionesEnLunesYViernes_esperoQueLosLunesYViernesPreviosALaCreacionDelEventoNoTenganAlEventoEnSusTareas(){
+        Calendar fechaDeHoy = new GregorianCalendar(2018,7,25);
+        final DateUtil dateSupplier = Mockito.mock(DateUtil.class);
+        Mockito.when(dateSupplier.getDate()).thenReturn(fechaDeHoy);
+        Agenda agenda = new Agenda(dateSupplier);
 
         EventoCiclico evento = new EventoCiclico("titulo");
         evento.agregarRepeticion(Calendar.MONDAY);
         evento.agregarRepeticion(Calendar.FRIDAY);
+        agenda.agregar(evento);
 
-
-        Calendar expectedMonday = new GregorianCalendar(2018,7,9);
-        Calendar expectedFriday = new GregorianCalendar(2018,7,13);
-
-        Calendar expectedMondayPlusOneWeek = new GregorianCalendar(2018,7,9);
-        expectedMondayPlusOneWeek.add(Calendar.DATE,Calendar.DAY_OF_WEEK);
-
-        Calendar expectedFridayPlusOneWeek = new GregorianCalendar(2018,7,13);
-        expectedFridayPlusOneWeek.add(Calendar.DATE,Calendar.DAY_OF_WEEK);
-
-        assertTrue(agenda.mostrarDia(expectedMonday).eventos().contains(evento));
-        assertTrue(agenda.mostrarDia(expectedFriday).eventos().contains(evento));
-        assertTrue(agenda.mostrarDia(expectedMondayPlusOneWeek).eventos().contains(evento));
-
-        Calendar previousMondayOfCreationDate = new GregorianCalendar(2018,7,7);
-        previousMondayOfCreationDate.add(Calendar.DATE,-Calendar.DAY_OF_WEEK);
-
-        assertFalse(agenda.mostrarDia(previousMondayOfCreationDate).eventos().contains(evento));
+        Calendar expectedPreviousMonday = new GregorianCalendar(2018,7,20);
+        Calendar expectedPreviousFriday = new GregorianCalendar(2018,7,24);
+        Evento expectedEvento = new Evento("titulo");
+        List<Evento> expectedEventos = agenda.mostrarDia(expectedPreviousMonday).eventos();
+        assertFalse(expectedEventos.contains(expectedEvento));
+        assertFalse(agenda.mostrarDia(expectedPreviousFriday).eventos().contains(expectedEvento));
     }
 
+    @Test
+    public void test_comparar_fechas(){
+        Calendar fechaDeHoy = new GregorianCalendar(2018,7,25);
+        Agenda agenda = new Agenda();
+
+        Calendar expectedDay = new GregorianCalendar(2018,7,24);
+        assertTrue(agenda.esPosteriorA(fechaDeHoy,expectedDay));
+    }
+
+    @Test
+    public void test_comparar_fechas_2(){
+        Calendar fechaDeHoy = new GregorianCalendar(2019,0,1);
+        Agenda agenda = new Agenda();
+
+        Calendar expectedDay = new GregorianCalendar(2018,7,20);
+        assertTrue(agenda.esPosteriorA(fechaDeHoy,expectedDay));
+    }
+
+    @Test
+    public void agregamosRepeticionesParaUnDiaEspecificoDelMes_esteEventoSeMuestraEnLasObligacionesDelDia(){
+        Calendar fechaDeHoy = new GregorianCalendar(2018,7,10);
+        final DateUtil dateSupplier = Mockito.mock(DateUtil.class);
+        Mockito.when(dateSupplier.getDate()).thenReturn(fechaDeHoy);
+        Agenda agenda = new Agenda(dateSupplier);
+
+        EventoCiclico evento = new EventoCiclico("titulo");
+        evento.agregarRepeticionMensual( 15);
+        agenda.agregar(evento);
+
+        Calendar expectedDay = new GregorianCalendar(2018,7,15);
+        Calendar expectedDayPlusAMonth = new GregorianCalendar(2018,8,15);
+        Evento expectedEvento = new Evento("titulo");
+        List<Evento> expectedEventos = agenda.mostrarDia(expectedDay).eventos();
+        assertTrue(expectedEventos.contains(expectedEvento));
+        assertTrue(agenda.mostrarDia(expectedDayPlusAMonth).eventos().contains(expectedEvento));
+    }
+
+    @Test
+    public void agregamosRepeticionesParaUnDiaEspecificoDelMes_esteEventoNoSeDebeMostrarLosDiasPreviosALaCreacionDelEvento(){
+        Calendar fechaDeHoy = new GregorianCalendar(2018,7,10);
+        final DateUtil dateSupplier = Mockito.mock(DateUtil.class);
+        Mockito.when(dateSupplier.getDate()).thenReturn(fechaDeHoy);
+        Agenda agenda = new Agenda(dateSupplier);
+
+        EventoCiclico evento = new EventoCiclico("titulo");
+        evento.agregarRepeticionMensual( 15);
+        agenda.agregar(evento);
+
+        Calendar expectedPreviousDay = new GregorianCalendar(2018,6,15);
+        Evento expectedEvento = new Evento("titulo");
+        List<Evento> expectedEventos = agenda.mostrarDia(expectedPreviousDay).eventos();
+        assertFalse(expectedEventos.contains(expectedEvento));
+    }
 
     /*
     Pendientes:
@@ -233,7 +298,6 @@ public class AgendaTest {
     TODO: (Más adelante) Al momento de finalizar un evento debemos preguntar al usuario si lo realizó y
     eventualmente tomar acciones sobre ello como por ejemplo preguntar por medio de notificaciones.
     TODO: Tenemos que hacer el manejo de dependencias. (Guice)
-    (3) TODO: Crear eventos cíclicos, osea eventos que se repiten distintos días en el mismo horario.
     TODO: (Versión futura) Tener distintos calendarios en una misma agenda. Un ejemplo es que
     tengamos un calendario de remedioS, otro de trabajo, otro personal, o mostrar todos.
 
@@ -242,6 +306,7 @@ public class AgendaTest {
     eventos y tareas que teniamos planificados para el ese día y pedirle al usuario que informe
     si los realizó o si deben ir de nuevo al backlog. (TerminarDía)
     DONE: Planificar las responsabilidades del día siguiente. (PlanificarDía)
+    DONE: Crear eventos cíclicos, osea eventos que se repiten distintos días en el mismo horario.
     */
 
 
