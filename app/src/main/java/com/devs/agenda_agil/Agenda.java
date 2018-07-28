@@ -1,7 +1,5 @@
 package com.devs.agenda_agil;
 
-import android.support.annotation.NonNull;
-
 import com.devs.src.DateUtil;
 
 import java.util.ArrayList;
@@ -10,17 +8,20 @@ import java.util.Collections;
 import java.util.List;
 
 class Agenda {
-    List<Evento> eventos = new ArrayList<>();
-    List<Tarea> backlog = new ArrayList<>();
-    List<Tarea> historialTareas = new ArrayList<>();
-    List<TareaPlanificada> planificado = new ArrayList<>();
-    DateUtil dateSupplier = new DateUtil();
+    private List<Evento> eventos = new ArrayList<>();
+    private List<Tarea> backlog = new ArrayList<>();
+    private List<Tarea> historialTareas = new ArrayList<>();
+    private List<TareaPlanificada> planificado = new ArrayList<>();
+    private DateUtil dateSupplier;
+    private List<EventoCiclico> reglasDeEventosCiclicos = new ArrayList<>();
 
     public Agenda(DateUtil dateSupplier) {
         this.dateSupplier = dateSupplier;
     }
 
-    public Agenda() { }
+    public Agenda() {
+        this.dateSupplier = new DateUtil();
+    }
 
     public void agregar(Evento evento) {
         this.eventos.add(evento);
@@ -111,6 +112,67 @@ class Agenda {
             }
         }
 
+        for(EventoCiclico eventoCiclico : this.reglasDeEventosCiclicos){
+            reglaParaDiasDeSemana(diaAMostrar, obligacionesDelDia, eventoCiclico);
+            reglaParaDiasDeMes(diaAMostrar, obligacionesDelDia, eventoCiclico);
+        }
+
         return obligacionesDelDia;
+    }
+
+    private void reglaParaDiasDeMes(Calendar diaAMostrar, DiaDeAgenda obligacionesDelDia, EventoCiclico eventoCiclico) {
+        if(esPosteriorA(diaAMostrar,eventoCiclico.getDiaDeInicio()) && diaAMostrar.get(Calendar.DAY_OF_MONTH) == eventoCiclico.getRepiteMensual()){
+            obligacionesDelDia.add(new Evento(eventoCiclico.getTitulo()));
+        }
+    }
+
+    private void reglaParaDiasDeSemana(Calendar diaAMostrar, DiaDeAgenda obligacionesDelDia, EventoCiclico eventoCiclico) {
+        for(int dia : eventoCiclico.getRepiteSemanal()){
+            if(esPosteriorA(diaAMostrar,eventoCiclico.getDiaDeInicio()) && (diaAMostrar.get(Calendar.DAY_OF_WEEK) == dia)){
+                obligacionesDelDia.add(new Evento(eventoCiclico.getTitulo()));
+            }
+        }
+    }
+
+    public static boolean esPosteriorA(Calendar diaAMostrar,Calendar diaDeCreacion) {
+        return diaAMostrar.get(Calendar.YEAR) > diaDeCreacion.get(Calendar.YEAR) || (diaAMostrar.get(Calendar.YEAR) == diaDeCreacion.get(Calendar.YEAR) && diaAMostrar.get(Calendar.DAY_OF_YEAR) >= diaDeCreacion.get(Calendar.DAY_OF_YEAR) );
+    }
+
+
+
+    public void realizar(Evento evento) {
+        assert this.eventos.contains(evento);
+
+        this.eventos.remove(evento);
+        Evento eventoRealizado = new Evento(evento);
+        eventoRealizado.setRealizado(true);
+        this.eventos.add(eventoRealizado);
+    }
+
+    public List<Evento> eventosRealizados() {
+        List<Evento> eventos = new ArrayList<>();
+        for(Evento evento : this.eventos){
+            if( evento.realizado() ){
+                eventos.add(evento);
+            }
+        }
+        return eventos;
+    }
+
+    public List<Evento> eventos() {
+        return this.eventos;
+    }
+
+    public void rePlanificar(Evento evento, Calendar nuevaFecha) {
+        assert this.eventos.contains(evento);
+
+        this.eventos.remove(evento);
+        Evento eventoRePlanificado = new Evento(evento);
+        eventoRePlanificado.setFecha(nuevaFecha);
+        this.eventos.add(eventoRePlanificado);
+    }
+
+    public void agregar(EventoCiclico evento) {
+        this.reglasDeEventosCiclicos.add(new EventoCiclico(evento.getTitulo(), this.dateSupplier.getDate(), evento.getRepiteSemanal(), evento.getRepiteMensual()));
     }
 }
