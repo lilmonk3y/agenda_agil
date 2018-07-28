@@ -241,19 +241,18 @@ public class AgendaTest {
     @Test
     public void test_comparar_fechas(){
         Calendar fechaDeHoy = new GregorianCalendar(2018,7,25);
-        Agenda agenda = new Agenda();
+
 
         Calendar expectedDay = new GregorianCalendar(2018,7,24);
-        assertTrue(agenda.esPosteriorA(fechaDeHoy,expectedDay));
+        assertTrue(Agenda.esPosteriorA(fechaDeHoy,expectedDay));
     }
 
     @Test
     public void test_comparar_fechas_2(){
         Calendar fechaDeHoy = new GregorianCalendar(2019,0,1);
-        Agenda agenda = new Agenda();
 
         Calendar expectedDay = new GregorianCalendar(2018,7,20);
-        assertTrue(agenda.esPosteriorA(fechaDeHoy,expectedDay));
+        assertTrue(Agenda.esPosteriorA(fechaDeHoy,expectedDay));
     }
 
     @Test
