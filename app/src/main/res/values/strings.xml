@@ -1,4 +1,6 @@
 <resources>
-    <string name="app_name">agenda_agil</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">Agenda ágil</string>
+    <string name="backlog">Backlog</string>
+    <string name="mostrar_dia">Mostrar Día</string>
+    <string name="eventos">Eventos</string>
 </resources>

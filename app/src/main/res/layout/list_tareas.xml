@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:background="#ffffff">
+
+        <ImageView
+            android:id="@+id/list_item_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@android:drawable/ic_menu_my_calendar"/>
+
+        <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingLeft="16dp">
+
+            <TextView
+                android:id="@+id/tarea_nombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Tarea sin realizar"/>
+
+            <TextView
+                android:id="@+id/tarea_prioridad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="24 - 10 - 2018"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
