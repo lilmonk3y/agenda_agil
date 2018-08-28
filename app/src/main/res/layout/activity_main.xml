@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -57,18 +56,27 @@
                 android:id="@+id/dia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="5dp"
                 android:layout_marginLeft="@dimen/textTitle"
                 android:fontFamily="sans-serif"
-                android:textSize="45sp"
-                tools:text="19" />
+                android:textSize="60sp"
+                tools:text="19"
+                android:textColor="#263238"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:background="@color/white"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="8dp"
+                    android:fontFamily="sans-serif"
+                    android:textAllCaps="true"
+                    tools:text="Agosto"
+                    android:textColor="#00263238"/>
 
                 <TextView
                     android:id="@+id/mes"
@@ -77,7 +85,8 @@
                     android:fontFamily="sans-serif"
                     android:textAllCaps="true"
                     android:textSize="15sp"
-                    tools:text="Agosto" />
+                    tools:text="Agosto"
+                    android:textColor="#263238"/>
 
                 <TextView
                     android:id="@+id/dia_de_la_semana"
@@ -86,18 +95,20 @@
                     android:fontFamily="sans-serif"
                     android:textAllCaps="true"
                     android:textSize="18sp"
-                    tools:text="Domingo" />
+                    tools:text="Domingo"
+                    android:textColor="#263238"/>
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#f2f2f2"
+            android:background="#e8eaf6"
             android:minHeight="50dp"
             android:orientation="horizontal">
 
             <LinearLayout
+                style="@style/section_buttons_main"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -110,10 +121,11 @@
                 <TextView
                     android:id="@+id/text1"
                     style="@style/section_buttons_main_text"
-                    android:text="@string/mostrar_dia" />
+                    android:text="@string/historial"/>
             </LinearLayout>
 
             <LinearLayout
+                style="@style/section_buttons_main"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -127,10 +139,12 @@
                 <TextView
                     android:id="@+id/text2"
                     style="@style/section_buttons_main_text"
-                    android:text="@string/eventos" />
+                    android:text="@string/eventos"/>
             </LinearLayout>
 
             <LinearLayout
+                style="@style/section_buttons_main"
+                android:id="@+id/backlogButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -145,7 +159,7 @@
                 <TextView
                     android:id="@+id/text3"
                     style="@style/section_buttons_main_text"
-                    android:text="@string/backlog" />
+                    android:text="@string/backlog"/>
             </LinearLayout>
 
         </LinearLayout>

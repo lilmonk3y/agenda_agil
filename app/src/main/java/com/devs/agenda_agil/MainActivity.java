@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         agenda.agregar(new Tarea("Tarea sin prioridad"));
         agenda.agregar(new Tarea("Tarea sin prioridad"));
         agenda.agregar(new Tarea("Tarea sin prioridad"));
+        mostrarBacklog(findViewById(R.id.backlogButton));
     }
 
     private void setFechaDeHoy() {
@@ -67,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         ListView listaDeTareas = (ListView) findViewById(R.id.list_tareas);
         listaDeTareas.setAdapter(arrayAdapter);
     }
+
+
 
 
 //    mostrar backlog en otra activity
