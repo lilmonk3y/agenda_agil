@@ -18,16 +18,24 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="section_buttons_main">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_gravity">center</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="section_buttons_main_text">
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="ic_main_style">
         <item name="android:layout_width">20dp</item>
         <item name="android:layout_height">20dp</item>
-        <item name="android:paddingLeft">20dp</item>
+        <item name="android:padding">8dp</item>
         <item name="android:alpha">.7</item>
     </style>
 

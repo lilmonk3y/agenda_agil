@@ -16,14 +16,16 @@ public class BacklogActivity extends AppCompatActivity {
         Agenda agenda = new Agenda();
         agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
         agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
-        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
-        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
-        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
-        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
-        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
-        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
-        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
         agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.MEDIA));
+        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.MEDIA));
+        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.MEDIA));
+        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.MEDIA));
+        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.BAJA));
+        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.BAJA));
+        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.BAJA));
+        agenda.agregar(new Tarea("Tarea sin prioridad"));
+        agenda.agregar(new Tarea("Tarea sin prioridad"));
+        agenda.agregar(new Tarea("Tarea sin prioridad"));
         agenda.agregar(new Tarea("Tarea sin prioridad"));
         ArrayList<Tarea> tareas = (ArrayList<Tarea>) agenda.backlog();
 

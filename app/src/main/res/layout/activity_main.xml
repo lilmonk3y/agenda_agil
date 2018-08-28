@@ -16,113 +16,146 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:background="@color/primaryDarkColor">
+            android:background="@color/primaryColor"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/textTitle"
                     android:text="@string/app_name"
-                    android:textSize="@dimen/textTitle"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textTitle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="right">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/outline_calendar_today_black_24dp" />
             </LinearLayout>
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:minHeight="200dp"
-            android:background="@color/primaryDarkColor">
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="@dimen/textTitle">
+
             <TextView
                 android:id="@+id/dia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="19"
-                android:textSize="80dp"
                 android:layout_marginLeft="@dimen/textTitle"
-                android:fontFamily="sans-serif"/>
-            <TextView
-                android:layout_width="wrap_content"
+                android:fontFamily="sans-serif"
+                android:textSize="70dp"
+                tools:text="19" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Agosto"
-                android:textSize="50dp"
-                android:layout_alignBaseline="@id/dia"
-                android:layout_toRightOf="@id/dia"
-                android:fontFamily="sans-serif"/>
-        </RelativeLayout>
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/dia_de_la_semana"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:textAllCaps="true"
+                    android:textSize="20sp"
+                    tools:text="Domingo" />
+
+                <TextView
+                    android:id="@+id/mes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:textAllCaps="true"
+                    android:textSize="30sp"
+                    tools:text="Agosto" />
+            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#f2f2f2"
             android:minHeight="50dp"
-            android:padding="16dp"
-            android:orientation="horizontal"
-            android:background="#f2f2f2">
-
+            android:orientation="horizontal">
 
             <LinearLayout
-                style="@style/section_buttons_main">
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
 
                 <ImageView
                     style="@style/ic_main_style"
-                    android:background="@drawable/baseline_wb_sunny_black_18dp"/>
+                    android:background="@drawable/outline_wb_sunny_black_24dp" />
+
                 <TextView
-                    android:layout_weight="1"
-                    android:layout_marginLeft="4dp"
-                    android:layout_width="wrap_content"
-                    android:gravity="left"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mostrar_dia"
-                    />
+                    android:id="@+id/text1"
+                    style="@style/section_buttons_main_text"
+                    android:text="@string/mostrar_dia" />
             </LinearLayout>
 
             <LinearLayout
-                style="@style/section_buttons_main"
-                android:onClick="backlog">
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="mostrarEventos">
 
                 <ImageView
-                    android:layout_gravity="center"
                     style="@style/ic_main_style"
-                    android:background="@drawable/baseline_list_black_18dp"
-                    />
+                    android:background="@drawable/outline_calendar_today_black_24dp" />
+
                 <TextView
-                    android:layout_weight="1"
-                    android:layout_marginLeft="4dp"
-                    android:gravity="left"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/backlog"
-                    />
+                    android:id="@+id/text2"
+                    style="@style/section_buttons_main_text"
+                    android:text="@string/eventos" />
             </LinearLayout>
 
             <LinearLayout
-                style="@style/section_buttons_main">
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center"
+                android:onClick="mostrarBacklog">
 
                 <ImageView
                     style="@style/ic_main_style"
-                    android:background="@drawable/baseline_wb_sunny_black_18dp"/>
+                    android:background="@drawable/outline_format_list_bulleted_black_24dp" />
+
                 <TextView
-                    android:layout_weight="1"
-                    android:layout_marginLeft="4dp"
-                    android:gravity="left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mostrar_dia"
-                    />
+                    android:id="@+id/text3"
+                    style="@style/section_buttons_main_text"
+                    android:text="@string/backlog" />
             </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
+        <ListView
+            android:id="@+id/list_tareas"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="300dp"
-            android:background="#f2f2f2">
-        </LinearLayout>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"></ListView>
 
     </LinearLayout>
 
