@@ -69,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
         listaDeTareas.setAdapter(arrayAdapter);
     }
 
+    public void crearET(View view){
+        Intent crearET = new Intent(this, CrearEventoTareaActivity.class);
+        startActivity(crearET);
+    }
+
 
 
 

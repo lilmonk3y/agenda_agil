@@ -1,176 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primaryDarkColor"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/primaryColor"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_name"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/textTitle" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="right">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:background="@drawable/outline_calendar_today_black_24dp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:padding="@dimen/textTitle">
-
-            <TextView
-                android:id="@+id/dia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="5dp"
-                android:layout_marginLeft="@dimen/textTitle"
-                android:fontFamily="sans-serif"
-                android:textSize="60sp"
-                tools:text="19"
-                android:textColor="#263238"/>
+            android:layout_height="match_parent"
+            android:background="@color/primaryDarkColor"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:background="@color/primaryColor"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_name"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/textTitle" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="right">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/outline_calendar_today_black_24dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:orientation="vertical" >
+                android:padding="10dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="8dp"
-                    android:fontFamily="sans-serif"
-                    android:textAllCaps="true"
-                    tools:text="Agosto"
-                    android:textColor="#00263238"/>
-
-                <TextView
-                    android:id="@+id/mes"
+                    android:id="@+id/dia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
                     android:fontFamily="sans-serif"
-                    android:textAllCaps="true"
-                    android:textSize="15sp"
-                    tools:text="Agosto"
-                    android:textColor="#263238"/>
+                    android:textColor="#263238"
+                    android:textSize="60sp"
+                    tools:text="19" />
 
-                <TextView
-                    android:id="@+id/dia_de_la_semana"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:textAllCaps="true"
-                    android:textSize="18sp"
-                    tools:text="Domingo"
-                    android:textColor="#263238"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="9dp"
+                        android:fontFamily="sans-serif"
+                        android:textAllCaps="true"
+                        android:textColor="#00263238"
+                        tools:text="Agosto" />
+
+                    <TextView
+                        android:id="@+id/mes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:textAllCaps="true"
+                        android:textColor="#263238"
+                        android:textSize="15sp"
+                        tools:text="Agosto" />
+
+                    <TextView
+                        android:id="@+id/dia_de_la_semana"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:textAllCaps="true"
+                        android:textColor="#263238"
+                        android:textSize="18sp"
+                        tools:text="Domingo" />
+                </LinearLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#e8eaf6"
+                android:minHeight="50dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    style="@style/section_buttons_main"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        style="@style/ic_main_style"
+                        android:background="@drawable/outline_wb_sunny_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/text1"
+                        style="@style/section_buttons_main_text"
+                        android:text="@string/historial" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/eventos"
+                    style="@style/section_buttons_main"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="mostrarEventos">
+
+                    <ImageView
+                        style="@style/ic_main_style"
+                        android:background="@drawable/outline_calendar_today_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/text2"
+                        style="@style/section_buttons_main_text"
+                        android:text="@string/eventos" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/backlogButton"
+                    style="@style/section_buttons_main"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="mostrarBacklog">
+
+                    <ImageView
+                        style="@style/ic_main_style"
+                        android:background="@drawable/outline_format_list_bulleted_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/text3"
+                        style="@style/section_buttons_main_text"
+                        android:text="@string/backlog" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/list_tareas"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/white"></ListView>
+
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#e8eaf6"
-            android:minHeight="50dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                style="@style/section_buttons_main"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <ImageView
-                    style="@style/ic_main_style"
-                    android:background="@drawable/outline_wb_sunny_black_24dp" />
-
-                <TextView
-                    android:id="@+id/text1"
-                    style="@style/section_buttons_main_text"
-                    android:text="@string/historial"/>
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/section_buttons_main"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:onClick="mostrarEventos">
-
-                <ImageView
-                    style="@style/ic_main_style"
-                    android:background="@drawable/outline_calendar_today_black_24dp" />
-
-                <TextView
-                    android:id="@+id/text2"
-                    style="@style/section_buttons_main_text"
-                    android:text="@string/eventos"/>
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/section_buttons_main"
-                android:id="@+id/backlogButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:gravity="center"
-                android:onClick="mostrarBacklog">
-
-                <ImageView
-                    style="@style/ic_main_style"
-                    android:background="@drawable/outline_format_list_bulleted_black_24dp" />
-
-                <TextView
-                    android:id="@+id/text3"
-                    style="@style/section_buttons_main_text"
-                    android:text="@string/backlog"/>
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <ListView
-            android:id="@+id/list_tareas"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/white"></ListView>
 
     </LinearLayout>
 
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="crearET"
+        android:src="@drawable/outline_add_white_48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
