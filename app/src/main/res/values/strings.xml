@@ -19,4 +19,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="evento">evento</string>
+    <string name="tarea">tarea</string>
+
+    <string name="texto_de_prueba"> Using BottomNavigationView with an updated Material theme (Theme.MaterialComponents) will provide the correct updated Material styles to your BottomNavigationViews by default. If you need to use an updated BottomNavigationView and your application theme does not inherit from an updated Material theme, or if you’d like to use a variant style, you can apply one of the updated Material styles directly to your widget in XML: Using BottomNavigationView with an updated Material theme (Theme.MaterialComponents) will provide the correct updated Material styles to your BottomNavigationViews by default. If you need to use an updated BottomNavigationView and your application theme does not inherit from an updated Material theme, or if you’d like to use a variant style, you can apply one of the updated Material styles directly to your widget in XML: Using BottomNavigationView with an updated Material theme (Theme.MaterialComponents) will provide the correct updated Material styles to your BottomNavigationViews by default. If you need to use an updated BottomNavigationView and your application theme does not inherit from an updated Material theme, or if you’d like to use a variant style, you can apply one of the updated Material styles directly to your widget in XML:</string>
 </resources>

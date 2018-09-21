@@ -6,15 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     Agenda agenda = new Agenda();
     Calendar fecha = new GregorianCalendar().getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,20 +26,20 @@ public class MainActivity extends AppCompatActivity {
 
         setFechaDeHoy();
 
+        View agregarEventoTarea = findViewById(R.id.agregarEventoTarea);
+        agregarEventoTarea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent crearEventoTareaIntent = new Intent(MainActivity.this, CrearEventoTareaActivity.class);
+                startActivity(crearEventoTareaIntent);
+            }
+        });
+
         agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
         agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
         agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.MEDIA));
-        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.MEDIA));
-        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.MEDIA));
-        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.MEDIA));
-        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.BAJA));
-        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.BAJA));
-        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.BAJA));
         agenda.agregar(new Tarea("Tarea sin prioridad"));
-        agenda.agregar(new Tarea("Tarea sin prioridad"));
-        agenda.agregar(new Tarea("Tarea sin prioridad"));
-        agenda.agregar(new Tarea("Tarea sin prioridad"));
-        mostrarBacklog(findViewById(R.id.backlogButton));
+//        mostrarBacklog(findViewById(R.id.backlog));
     }
 
     private void setFechaDeHoy() {
@@ -45,36 +48,29 @@ public class MainActivity extends AppCompatActivity {
         String mes = this.fecha.getDisplayName(Calendar.MONTH, Calendar.LONG, locale);
         String diaDeLaSemana = this.fecha.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, locale);
 
-        TextView displayDia = (TextView) findViewById(R.id.dia);
+        TextView displayDia = findViewById(R.id.dia);
         displayDia.setText(Integer.toString(dia));
 
-        TextView displayMes = (TextView) findViewById(R.id.mes);
+        TextView displayMes = findViewById(R.id.mes);
         displayMes.setText(mes);
 
-        TextView displayDiaDeLaSemana = (TextView) findViewById(R.id.dia_de_la_semana);
+        TextView displayDiaDeLaSemana = findViewById(R.id.dia_de_la_semana);
         displayDiaDeLaSemana.setText(diaDeLaSemana);
     }
-
+//
     public void mostrarBacklog(View view){
-        ArrayList<Tarea> tareas = (ArrayList<Tarea>) agenda.backlog();
-        TareasArrayAdapter arrayAdapter = new TareasArrayAdapter(this,tareas);
+        List<Tarea> tareas = agenda.backlog();
+        TareasArrayAdapter arrayAdapter = new TareasArrayAdapter(this,(ArrayList<Tarea>) tareas);
         ListView listaDeTareas = (ListView) findViewById(R.id.list_tareas);
         listaDeTareas.setAdapter(arrayAdapter);
     }
-
-    public void mostrarEventos(View view){
-        ArrayList<Tarea> tareas = (ArrayList<Tarea>) agenda.backlog();
-        TareasArrayAdapter arrayAdapter = new TareasArrayAdapter(this,tareas);
-        ListView listaDeTareas = (ListView) findViewById(R.id.list_tareas);
-        listaDeTareas.setAdapter(arrayAdapter);
-    }
-
-    public void crearET(View view){
-        Intent crearET = new Intent(this, CrearEventoTareaActivity.class);
-        startActivity(crearET);
-    }
-
-
+//
+//    public void mostrarEventos(View view){
+//        ArrayList<Tarea> tareas = (ArrayList<Tarea>) agenda.backlog();
+//        TareasArrayAdapter arrayAdapter = new TareasArrayAdapter(this,tareas);
+//        ListView listaDeTareas = (ListView) findViewById(R.id.list_tareas);
+//        listaDeTareas.setAdapter(arrayAdapter);
+//    }
 
 
 //    mostrar backlog en otra activity
