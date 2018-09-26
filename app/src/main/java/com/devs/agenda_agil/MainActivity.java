@@ -39,7 +39,31 @@ public class MainActivity extends AppCompatActivity {
         agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
         agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.MEDIA));
         agenda.agregar(new Tarea("Tarea sin prioridad"));
-//        mostrarBacklog(findViewById(R.id.backlog));
+        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
+        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
+        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.MEDIA));
+        agenda.agregar(new Tarea("Tarea sin prioridad"));
+        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
+        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
+        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.MEDIA));
+        agenda.agregar(new Tarea("Tarea sin prioridad"));
+        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
+        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
+        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.MEDIA));
+        agenda.agregar(new Tarea("Tarea sin prioridad"));
+        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
+        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
+        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.MEDIA));
+        agenda.agregar(new Tarea("Tarea sin prioridad"));
+        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
+        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
+        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.MEDIA));
+        agenda.agregar(new Tarea("Tarea sin prioridad"));
+        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
+        agenda.agregar(new Tarea("Tarea prioridad Maxima", Prioridad.MAXIMA));
+        agenda.agregar(new Tarea("Tarea prioridad media", Prioridad.MEDIA));
+        agenda.agregar(new Tarea("Tarea sin prioridad"));
+        mostrarBacklog();
     }
 
     private void setFechaDeHoy() {
@@ -57,25 +81,11 @@ public class MainActivity extends AppCompatActivity {
         TextView displayDiaDeLaSemana = findViewById(R.id.dia_de_la_semana);
         displayDiaDeLaSemana.setText(diaDeLaSemana);
     }
-//
-    public void mostrarBacklog(View view){
+
+    public void mostrarBacklog(){
         List<Tarea> tareas = agenda.backlog();
         TareasArrayAdapter arrayAdapter = new TareasArrayAdapter(this,(ArrayList<Tarea>) tareas);
         ListView listaDeTareas = (ListView) findViewById(R.id.list_tareas);
         listaDeTareas.setAdapter(arrayAdapter);
     }
-//
-//    public void mostrarEventos(View view){
-//        ArrayList<Tarea> tareas = (ArrayList<Tarea>) agenda.backlog();
-//        TareasArrayAdapter arrayAdapter = new TareasArrayAdapter(this,tareas);
-//        ListView listaDeTareas = (ListView) findViewById(R.id.list_tareas);
-//        listaDeTareas.setAdapter(arrayAdapter);
-//    }
-
-
-//    mostrar backlog en otra activity
-//    public void backlog(View view){
-//        Intent intent = new Intent(this, BacklogActivity.class);
-//        startActivity(intent);
-//    }
 }

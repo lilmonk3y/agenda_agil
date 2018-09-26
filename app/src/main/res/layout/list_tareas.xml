@@ -5,8 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="12dp"
-    android:background="#ffffff">
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:background="@android:color/transparent">
 
         <ImageView
             android:id="@+id/list_item_icon"
