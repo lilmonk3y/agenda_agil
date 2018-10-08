@@ -21,7 +21,7 @@
         <item name="android:layout_width">20dp</item>
         <item name="android:layout_height">20dp</item>
         <item name="android:padding">8dp</item>
-        <item name="android:alpha">.7</item>
+        <item name="alpha">.7</item>
     </style>
 
 </resources>

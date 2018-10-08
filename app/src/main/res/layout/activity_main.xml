@@ -112,13 +112,34 @@
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="5dp"
-                    android:paddingBottom="20dp"
+                    android:paddingBottom="60dp"
                     android:layout_marginBottom="-12dp"
                     >
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
+
+                        <android.support.design.button.MaterialButton
+                            android:layout_marginTop="-15dp"
+                            android:paddingTop="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingLeft="15dp"
+                            android:paddingBottom="10dp"
+                            android:id="@+id/material_icon_button"
+                            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                            android:backgroundTint="#f2f2f2"
+                            app:cornerRadius="0dp"
+                            android:hint="@string/evento"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="agenda"
+                            android:textColor="@android:color/darker_gray"
+                            app:icon="@drawable/ic_expand_less_black_24dp"
+                            app:iconTint="@android:color/darker_gray"
+                            app:iconGravity="textStart"/>
+
                         <ListView
                             android:id="@+id/list_tareas"
                             android:layout_width="match_parent"

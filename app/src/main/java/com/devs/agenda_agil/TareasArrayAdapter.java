@@ -1,8 +1,8 @@
 package com.devs.agenda_agil;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class TareasArrayAdapter extends ArrayAdapter<Tarea>{
 
-    public TareasArrayAdapter(@NonNull Activity context, ArrayList<Tarea> backlog) {
+    public TareasArrayAdapter(@NonNull AppCompatActivity context, ArrayList<Tarea> backlog) {
 
         super(context, 0, backlog);
     }

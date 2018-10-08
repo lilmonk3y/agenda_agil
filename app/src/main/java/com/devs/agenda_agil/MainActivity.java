@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
