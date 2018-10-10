@@ -2,7 +2,7 @@ package com.devs.agenda_agil;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.widget.Toolbar;
 
 public class CrearEventoTareaActivity extends AppCompatActivity {
 
@@ -11,12 +11,9 @@ public class CrearEventoTareaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_evento_tarea);
 
-        View CrearVolver = findViewById(R.id.crear_volver);
-        CrearVolver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Crear nuevo Evento/Tarea");
     }
 }

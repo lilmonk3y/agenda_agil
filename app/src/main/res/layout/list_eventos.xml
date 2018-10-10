@@ -13,17 +13,17 @@
     android:paddingRight="8dp">
 
         <TextView
-            android:elevation="4dp"
-            android:id="@+id/tarea_letra_circulo"
-            android:backgroundTint="@color/primaryColor"
+            android:elevation="3dp"
+            android:id="@+id/evento_letra_circulo"
             android:alpha=".7"
             android:background="@drawable/shape"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:textAllCaps="true"
+            android:paddingBottom="1dp"
             android:text=""
             android:maxLength="1"
-            android:paddingBottom="1dp"
-            tools:text="T"
+            tools:text="E"
             android:textSize="24sp"
             android:textColor="@color/primaryTextColor"
             android:textFontWeight="bold"
@@ -39,7 +39,7 @@
             <TextView
                 android:maxLines="1"
                 android:maxLength="30"
-                android:id="@+id/tarea_titulo"
+                android:id="@+id/evento_titulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
@@ -48,7 +48,7 @@
                 tools:text="Darle de comer a tu hijo."/>
 
             <TextView
-                android:id="@+id/tarea_prioridad"
+                android:id="@+id/evento_fecha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
