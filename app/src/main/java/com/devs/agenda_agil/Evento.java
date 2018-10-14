@@ -1,9 +1,12 @@
 package com.devs.agenda_agil;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Calendar;
 import java.util.Objects;
 
-class Evento {
+class Evento implements Parcelable {
     private String titulo;
     private Calendar fecha;
     private Boolean realizado;
@@ -40,6 +43,24 @@ class Evento {
         this.fecha = null;
     }
 
+    protected Evento(Parcel in) {
+        titulo = in.readString();
+        byte tmpRealizado = in.readByte();
+        realizado = tmpRealizado == 0 ? null : tmpRealizado == 1;
+    }
+
+    public static final Creator<Evento> CREATOR = new Creator<Evento>() {
+        @Override
+        public Evento createFromParcel(Parcel in) {
+            return new Evento(in);
+        }
+
+        @Override
+        public Evento[] newArray(int size) {
+            return new Evento[size];
+        }
+    };
+
     public String titulo() {
         return this.titulo;
     }
@@ -74,5 +95,16 @@ class Evento {
     @Override
     public int hashCode() {
         return 0;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(titulo);
+        dest.writeByte((byte) (realizado == null ? 0 : realizado ? 1 : 2));
     }
 }

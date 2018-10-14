@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:background="@color/primaryTextColor"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
+
+        <TextView
+            android:elevation="3dp"
+            android:id="@+id/evento_letra_circulo"
+            android:alpha=".7"
+            android:background="@drawable/shape"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:textAllCaps="true"
+            android:paddingBottom="1dp"
+            android:text=""
+            android:maxLength="1"
+            tools:text="E"
+            android:textSize="24sp"
+            android:textColor="@color/primaryTextColor"
+            android:textFontWeight="bold"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="16dp">
+
+            <TextView
+                android:maxLines="1"
+                android:maxLength="30"
+                android:id="@+id/evento_titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:alpha=".7"
+                tools:text="Darle de comer a tu hijo."/>
+
+            <TextView
+                android:id="@+id/evento_fecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                tools:text="Prioridad: Alta."/>
+
+        </LinearLayout>
+
+    </LinearLayout>

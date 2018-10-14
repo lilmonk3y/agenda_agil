@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/historial"
+        android:icon="@drawable/ic_history_black_24dp"
+        android:title="@string/historial"
+        />
+    <item android:id="@+id/calendario"
+        android:icon="@drawable/ic_event_note_black_24dp"
+        android:title="@string/calendario"
+        />
+    <item android:id="@+id/principal"
+        android:icon="@drawable/ic_shuffle_black_24dp"
+        android:title="@string/shuffle"
+        />
+    <item android:id="@+id/eventos"
+        android:icon="@drawable/ic_assistant_photo_black_24dp"
+        android:title="@string/eventos"
+        />
+    <item android:id="@+id/backlog"
+        android:icon="@drawable/ic_filter_list_black_24dp"
+        android:title="@string/backlog"
+        />
+</menu>

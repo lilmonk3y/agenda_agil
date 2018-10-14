@@ -7,28 +7,13 @@ import java.util.List;
 class EventoCiclico {
     private String titulo;
     private Calendar diaDeInicio;
-    private List<Integer> repiteSemanal;
+    private List<Integer> repiteSemanal = new ArrayList<>();
     private int repiteMensual;
+    private int[] repiteAnual = new int[]{0,0};
 
-    public EventoCiclico(String titulo) {
+    public EventoCiclico(String titulo, Calendar fechaDeInicio) {
         this.titulo = titulo;
-        this.repiteSemanal = new ArrayList<>();
-        this.diaDeInicio = null;
-        this.repiteMensual = 0;
-    }
-
-    public EventoCiclico(String titulo, Calendar diaDeCreacion, List<Integer> repite) {
-        this.titulo = titulo;
-        this.diaDeInicio  = diaDeCreacion;
-        this.repiteSemanal = repite;
-        this.repiteMensual = 0;
-    }
-
-    public EventoCiclico(String titulo, Calendar date, List<Integer> repiteSemanal, int repiteMensual) {
-        this.titulo = titulo;
-        this.diaDeInicio  = date;
-        this.repiteSemanal = repiteSemanal;
-        this.repiteMensual = repiteMensual;
+        this.diaDeInicio = fechaDeInicio;
     }
 
     public String getTitulo() {
@@ -56,5 +41,13 @@ class EventoCiclico {
 
     public int getRepiteMensual() {
         return repiteMensual;
+    }
+
+    public void agregarRepeticionAnual(int dia, int mes) {
+        this.repiteAnual = new int[]{dia, mes};
+    }
+
+    public int[] getRepiteAnual() {
+        return repiteAnual;
     }
 }

@@ -115,26 +115,35 @@ class Agenda {
         for(EventoCiclico eventoCiclico : this.reglasDeEventosCiclicos){
             reglaParaDiasDeSemana(diaAMostrar, obligacionesDelDia, eventoCiclico);
             reglaParaDiasDeMes(diaAMostrar, obligacionesDelDia, eventoCiclico);
+            reglaDeRepeticionAnual(diaAMostrar, obligacionesDelDia, eventoCiclico);
         }
 
         return obligacionesDelDia;
     }
 
+    private void reglaDeRepeticionAnual(Calendar diaAMostrar, DiaDeAgenda obligacionesDelDia, EventoCiclico eventoCiclico) {
+        int diaDeRepeticionAnual = eventoCiclico.getRepiteAnual()[0];
+        int mesDeRepeticionAnual = eventoCiclico.getRepiteAnual()[1];
+        if(esPosteriorA(diaAMostrar, eventoCiclico.getDiaDeInicio()) && (diaAMostrar.get(Calendar.DAY_OF_MONTH) == diaDeRepeticionAnual && diaAMostrar.get(Calendar.MONTH) == mesDeRepeticionAnual)){
+            obligacionesDelDia.add(new Evento(eventoCiclico.getTitulo()));
+        }
+    }
+
     private void reglaParaDiasDeMes(Calendar diaAMostrar, DiaDeAgenda obligacionesDelDia, EventoCiclico eventoCiclico) {
-        if(esPosteriorA(diaAMostrar,eventoCiclico.getDiaDeInicio()) && diaAMostrar.get(Calendar.DAY_OF_MONTH) == eventoCiclico.getRepiteMensual()){
+        if(esPosteriorA(diaAMostrar, eventoCiclico.getDiaDeInicio()) && diaAMostrar.get(Calendar.DAY_OF_MONTH) == eventoCiclico.getRepiteMensual()){
             obligacionesDelDia.add(new Evento(eventoCiclico.getTitulo()));
         }
     }
 
     private void reglaParaDiasDeSemana(Calendar diaAMostrar, DiaDeAgenda obligacionesDelDia, EventoCiclico eventoCiclico) {
         for(int dia : eventoCiclico.getRepiteSemanal()){
-            if(esPosteriorA(diaAMostrar,eventoCiclico.getDiaDeInicio()) && (diaAMostrar.get(Calendar.DAY_OF_WEEK) == dia)){
+            if(esPosteriorA(diaAMostrar, eventoCiclico.getDiaDeInicio()) && (diaAMostrar.get(Calendar.DAY_OF_WEEK) == dia)){
                 obligacionesDelDia.add(new Evento(eventoCiclico.getTitulo()));
             }
         }
     }
 
-    public static boolean esPosteriorA(Calendar diaAMostrar,Calendar diaDeCreacion) {
+    public static boolean esPosteriorA(Calendar diaAMostrar, Calendar diaDeCreacion) {
         return diaAMostrar.get(Calendar.YEAR) > diaDeCreacion.get(Calendar.YEAR) || (diaAMostrar.get(Calendar.YEAR) == diaDeCreacion.get(Calendar.YEAR) && diaAMostrar.get(Calendar.DAY_OF_YEAR) >= diaDeCreacion.get(Calendar.DAY_OF_YEAR) );
     }
 
@@ -173,6 +182,6 @@ class Agenda {
     }
 
     public void agregar(EventoCiclico evento) {
-        this.reglasDeEventosCiclicos.add(new EventoCiclico(evento.getTitulo(), this.dateSupplier.getDate(), evento.getRepiteSemanal(), evento.getRepiteMensual()));
+        this.reglasDeEventosCiclicos.add(evento);
     }
 }

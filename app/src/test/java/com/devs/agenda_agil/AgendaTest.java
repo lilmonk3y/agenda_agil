@@ -201,7 +201,7 @@ public class AgendaTest {
         Mockito.when(dateSupplier.getDate()).thenReturn(fechaDeHoy);
         Agenda agenda = new Agenda(dateSupplier);
 
-        EventoCiclico evento = new EventoCiclico("titulo");
+        EventoCiclico evento = new EventoCiclico("titulo", fechaDeHoy);
         evento.agregarRepeticion(Calendar.MONDAY);
         evento.agregarRepeticion(Calendar.FRIDAY);
         agenda.agregar(evento);
@@ -225,7 +225,7 @@ public class AgendaTest {
         Mockito.when(dateSupplier.getDate()).thenReturn(fechaDeHoy);
         Agenda agenda = new Agenda(dateSupplier);
 
-        EventoCiclico evento = new EventoCiclico("titulo");
+        EventoCiclico evento = new EventoCiclico("titulo", fechaDeHoy);
         evento.agregarRepeticion(Calendar.MONDAY);
         evento.agregarRepeticion(Calendar.FRIDAY);
         agenda.agregar(evento);
@@ -262,7 +262,7 @@ public class AgendaTest {
         Mockito.when(dateSupplier.getDate()).thenReturn(fechaDeHoy);
         Agenda agenda = new Agenda(dateSupplier);
 
-        EventoCiclico evento = new EventoCiclico("titulo");
+        EventoCiclico evento = new EventoCiclico("titulo", fechaDeHoy);
         evento.agregarRepeticionMensual( 15);
         agenda.agregar(evento);
 
@@ -281,7 +281,7 @@ public class AgendaTest {
         Mockito.when(dateSupplier.getDate()).thenReturn(fechaDeHoy);
         Agenda agenda = new Agenda(dateSupplier);
 
-        EventoCiclico evento = new EventoCiclico("titulo");
+        EventoCiclico evento = new EventoCiclico("titulo", fechaDeHoy);
         evento.agregarRepeticionMensual( 15);
         agenda.agregar(evento);
 
@@ -290,6 +290,48 @@ public class AgendaTest {
         List<Evento> expectedEventos = agenda.mostrarDia(expectedPreviousDay).eventos();
         assertFalse(expectedEventos.contains(expectedEvento));
     }
+
+    @Test
+    public void agregamosRepeticionesParaUnDiaEspecificoDelAño_esteEventoSeMuestraEnLasObligacionesDelDia(){
+        Calendar fechaDeHoy = new GregorianCalendar(2018,7,10);
+        final DateUtil dateSupplier = Mockito.mock(DateUtil.class);
+        Mockito.when(dateSupplier.getDate()).thenReturn(fechaDeHoy);
+        Agenda agenda = new Agenda(dateSupplier);
+
+        EventoCiclico evento = new EventoCiclico("titulo", fechaDeHoy);
+        int dia = 15;
+        evento.agregarRepeticionAnual(dia, Calendar.AUGUST);
+        agenda.agregar(evento);
+
+        Calendar expectedDay = new GregorianCalendar(2018,7,15);
+        Calendar notExpectedDay = new GregorianCalendar(2019,7,14);
+        Calendar expectedDayPlusAMonth = new GregorianCalendar(2019,7,15);
+        Evento expectedEvento = new Evento("titulo");
+        List<Evento> expectedEventos = agenda.mostrarDia(expectedDay).eventos();
+        assertTrue(expectedEventos.contains(expectedEvento));
+        assertTrue(agenda.mostrarDia(expectedDayPlusAMonth).eventos().contains(expectedEvento));
+        assertFalse(agenda.mostrarDia(notExpectedDay).eventos().contains(expectedEvento));
+    }
+
+    @Test
+    public void agregamosRepeticionesParaUnDiaEspecificoDelAño_esteEventoNoSeDebeMostrarLosDiasPreviosALaCreacionDelEvento(){
+        Calendar fechaDeHoy = new GregorianCalendar(2018,7,10);
+        final DateUtil dateSupplier = Mockito.mock(DateUtil.class);
+        Mockito.when(dateSupplier.getDate()).thenReturn(fechaDeHoy);
+        Agenda agenda = new Agenda(dateSupplier);
+
+        EventoCiclico evento = new EventoCiclico("titulo", fechaDeHoy);
+        int dia = 15;
+        evento.agregarRepeticionAnual(dia, Calendar.AUGUST);
+        agenda.agregar(evento);
+
+        Calendar expectedPreviousDay = new GregorianCalendar(2017,7,15);
+        Evento expectedEvento = new Evento("titulo");
+        List<Evento> expectedEventos = agenda.mostrarDia(expectedPreviousDay).eventos();
+        assertFalse(expectedEventos.contains(expectedEvento));
+    }
+
+
 
     /*
     Pendientes:
@@ -301,6 +343,15 @@ public class AgendaTest {
     tengamos un calendario de remedioS, otro de trabajo, otro personal, o mostrar todos.
 
     REALIZADOS:
+    DONE: Nuevo: repeticionAnual de evento.
+    DONE: Limpieza de EventoCiclico: Borré todos los constructores al pedo de EventoCiclico,
+    de ser necesarios se crearán.
+    DONE: Eventos cíclicos corrección: antes los eventos agregados a la lista "reglaDeEventosCiclicos"
+    se creaban a partir de un new EventoCiclico(Constructor raro). ahora se crean a partir de otro
+    evento, vienen con toda la información del otro. Al cambiar eso fallaban 4 tests por
+    NullPointerException, porque la lista de repiteSemanal se declaraba dentro de un constructor,
+    haciendo imposible "agregarRepeticionesSemanales".
+
     DONE: Tenemos que hacer el método terminar día, que lo que tiene que hacer es: mostrar todos los
     eventos y tareas que teniamos planificados para el ese día y pedirle al usuario que informe
     si los realizó o si deben ir de nuevo al backlog. (TerminarDía)

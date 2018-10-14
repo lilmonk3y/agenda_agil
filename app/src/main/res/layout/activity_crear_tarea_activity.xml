@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Crear_tarea_activity"
+    android:background="@color/primaryTextColor">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:titleTextColor="@color/primaryColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        app:title="@string/crear_tarea_activity"
+        android:background="@color/primaryTextColor"
+        />
+    <LinearLayout
+        android:layout_margin="8dp"
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/textTitle">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/nombre_de_la_tarea_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/tarea_nombre"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:labelFor="@id/radio_group_prioridad"
+            android:textSize="@dimen/labels_text_size"
+            android:paddingBottom="@dimen/labels_text_size"
+            android:paddingStart="8dp"
+            android:text="@string/tarea_prioridad"/>
+        <RadioGroup
+            android:layout_marginBottom="8dp"
+            android:id="@+id/radio_group_prioridad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <android.support.v7.widget.AppCompatRadioButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="@string/prioridad_maxima"/>
+            <android.support.v7.widget.AppCompatRadioButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="@string/prioridad_media"/>
+            <android.support.v7.widget.AppCompatRadioButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="@string/prioridad_baja"/>
+        </RadioGroup>
+        <View
+            android:layout_marginTop="@dimen/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp">
+
+            <android.support.design.button.MaterialButton
+                android:layout_alignParentRight="true"
+                android:theme="@style/Widget.MaterialComponents.Button"
+                android:id="@+id/crearTarea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="crear"
+                android:backgroundTint="@color/primaryColor"
+                android:textColor="@color/primaryTextColor"/>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>
