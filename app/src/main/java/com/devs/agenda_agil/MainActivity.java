@@ -7,9 +7,16 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
+import android.transition.Scene;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -20,6 +27,13 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Tarea> backlog = (ArrayList<Tarea>)  agenda.backlog();
     private ArrayList<Evento> eventos = (ArrayList<Evento>)  agenda.eventos();
     Bundle bundle = new Bundle();
+    FloatingActionMenu fabMenu;
+    FloatingActionButton fabEventos;
+    FloatingActionButton fabTareas;
+    String creadorDeTareasNombre;
+    int creadorDeTareasPrioridad;
+    Tarea tarea;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,58 +48,54 @@ public class MainActivity extends AppCompatActivity {
         View view = barraDeNavegacion.findViewById(R.id.eventos);
         view.performClick();
 
-        View agregarEventoTarea = findViewById(R.id.agregarEventoTarea);
-
-        agregarEventoTarea.setOnClickListener(new View.OnClickListener() {
+        fabMenu = findViewById(R.id.fab_crear);
+        fabMenu.setClosedOnTouchOutside(true);
+        fabTareas = findViewById(R.id.fab_tareas);
+        fabTareas.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent crearEventoTareaIntent = new Intent(MainActivity.this, CrearEventoTareaActivity.class);
-                startActivity(crearEventoTareaIntent);
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Crear_tarea_activity.class);
+                startActivity(intent);
+            }
+        });
+        fabEventos = findViewById(R.id.fab_eventos);
+        fabEventos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
-//        setFechaDeHoy();
+        creadorDeTareasPrioridad = getIntent().getIntExtra("prioridadT", 0);
 
-//        agenda.agregar(new Tarea("Darle de comer a los peces", Prioridad.MAXIMA));
-//        agenda.agregar(new Tarea("Entrenar", Prioridad.BAJA));
-//        agenda.agregar(new Tarea("Estudiar para los finales", Prioridad.SIN_PRIORIZAR));
-//        agenda.agregar(new Tarea("Jugar con el celular en el baño", Prioridad.MEDIA));
-//        agenda.agregar(new Tarea("Darle de comer a los peces", Prioridad.MAXIMA));
-//        agenda.agregar(new Tarea("Entrenar", Prioridad.BAJA));
-//        agenda.agregar(new Tarea("Estudiar para los finales", Prioridad.SIN_PRIORIZAR));
-//        agenda.agregar(new Tarea("Jugar con el celular en el baño", Prioridad.MEDIA));
-//        agenda.agregar(new Tarea("Darle de comer a los peces", Prioridad.MAXIMA));
-//        agenda.agregar(new Tarea("Entrenar", Prioridad.BAJA));
-//        agenda.agregar(new Tarea("Estudiar para los finales", Prioridad.SIN_PRIORIZAR));
-//        agenda.agregar(new Tarea("Jugar con el celular en el baño", Prioridad.MEDIA));
-//        agenda.agregar(new Tarea("Darle de comer a los peces", Prioridad.MAXIMA));
-//        agenda.agregar(new Tarea("Entrenar", Prioridad.BAJA));
-//        agenda.agregar(new Tarea("Estudiar para los finales", Prioridad.SIN_PRIORIZAR));
-//        agenda.agregar(new Tarea("Jugar con el celular en el baño", Prioridad.MEDIA));
-//        agenda.agregar(new Tarea("Darle de comer a los peces", Prioridad.MAXIMA));
-//        agenda.agregar(new Tarea("Entrenar", Prioridad.BAJA));
-//        agenda.agregar(new Tarea("Estudiar para los finales", Prioridad.SIN_PRIORIZAR));
-//        agenda.agregar(new Tarea("Jugar con el celular en el baño", Prioridad.MEDIA));
-//        agenda.agregar(new Evento(fecha, "Evento"));
-//        agenda.agregar(new Evento(fecha, "Evento asdasd"));
-//        agenda.agregar(new Evento(fecha, "evento asdasdasd "));
-//        agenda.agregar(new Evento(fecha, "eventoasdasd"));
-//        agenda.agregar(new Evento(fecha, "eventoasdasd"));
-//        agenda.agregar(new Evento(fecha, "Evento"));
-//        agenda.agregar(new Evento(fecha, "Evento asdasd"));
-//        agenda.agregar(new Evento(fecha, "evento asdasdasd "));
-//        agenda.agregar(new Evento(fecha, "eventoasdasd"));
-//        agenda.agregar(new Evento(fecha, "eventoasdasd"));
-//        agenda.agregar(new Evento(fecha, "Evento"));
-//        agenda.agregar(new Evento(fecha, "Evento asdasd"));
-//        agenda.agregar(new Evento(fecha, "evento asdasdasd "));
-//        agenda.agregar(new Evento(fecha, "eventoasdasd"));
-//        agenda.agregar(new Evento(fecha, "eventoasdasd"));
-//        agenda.agregar(new Evento(fecha, "Evento"));
-//        agenda.agregar(new Evento(fecha, "Evento asdasd"));
-//        agenda.agregar(new Evento(fecha, "evento asdasdasd"));
-//        agenda.agregar(new Evento(fecha, "eventoasdasd"));
-//        agenda.agregar(new Evento(fecha, "eventoasdasd"));
+
+        if (creadorDeTareasPrioridad > 0) {
+            creadorDeTareasNombre = getIntent().getStringExtra("nombreT");
+            tarea = new Tarea(creadorDeTareasNombre);
+            agenda.agregar(tarea);
+        }
+
+//        setFechaDeHoy();
+        agenda.agregar(new Evento(fecha, "Evento"));
+        agenda.agregar(new Evento(fecha, "Evento asdasd"));
+        agenda.agregar(new Evento(fecha, "evento asdasdasd "));
+        agenda.agregar(new Evento(fecha, "eventoasdasd"));
+        agenda.agregar(new Evento(fecha, "eventoasdasd"));
+        agenda.agregar(new Evento(fecha, "Evento"));
+        agenda.agregar(new Evento(fecha, "Evento asdasd"));
+        agenda.agregar(new Evento(fecha, "evento asdasdasd "));
+        agenda.agregar(new Evento(fecha, "eventoasdasd"));
+        agenda.agregar(new Evento(fecha, "eventoasdasd"));
+        agenda.agregar(new Evento(fecha, "Evento"));
+        agenda.agregar(new Evento(fecha, "Evento asdasd"));
+        agenda.agregar(new Evento(fecha, "evento asdasdasd "));
+        agenda.agregar(new Evento(fecha, "eventoasdasd"));
+        agenda.agregar(new Evento(fecha, "eventoasdasd"));
+        agenda.agregar(new Evento(fecha, "Evento"));
+        agenda.agregar(new Evento(fecha, "Evento asdasd"));
+        agenda.agregar(new Evento(fecha, "evento asdasdasd"));
+        agenda.agregar(new Evento(fecha, "eventoasdasd"));
+        agenda.agregar(new Evento(fecha, "eventoasdasd"));
     }
 
     @Override

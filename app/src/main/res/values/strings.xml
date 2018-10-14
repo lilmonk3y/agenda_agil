@@ -20,8 +20,8 @@
     <string name="calendario">Mes</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="evento">evento</string>
-    <string name="tarea">tarea</string>
+    <string name="evento">Evento</string>
+    <string name="tarea">Tarea</string>
     <string name="texto_de_prueba"> Using BottomNavigationView with an updated Material theme
         (Theme.MaterialComponents) will provide the correct updated Material styles to your
         BottomNavigationViews by default. If you need to use an updated BottomNavigationView
@@ -45,6 +45,11 @@
     <string name="opciones">Opciones</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tarea_nombre">Nombre de la tarea</string>
+    <string name="tarea_prioridad">Prioridad de la tarea:</string>
+    <string name="crear_tarea_activity">Crear tarea</string>
+    <string name="prioridad_maxima">Máxima</string>
+    <string name="prioridad_media">Media</string>
+    <string name="prioridad_baja">Baja</string>
 
 </resources>

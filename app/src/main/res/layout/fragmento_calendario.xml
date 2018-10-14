@@ -2,12 +2,24 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="fragmento calendario"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:background="@android:color/holo_green_light"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24dp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:text="Calendario"/>
+        <CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </CalendarView>
+    </LinearLayout>
+
 
 </FrameLayout>
