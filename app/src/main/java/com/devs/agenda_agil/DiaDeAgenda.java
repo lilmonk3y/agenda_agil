@@ -1,5 +1,8 @@
 package com.devs.agenda_agil;
 
+import com.devs.entity.Evento;
+import com.devs.entity.TareaPlanificada;
+
 import java.util.ArrayList;
 import java.util.List;
 

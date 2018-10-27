@@ -1,6 +1,10 @@
 package com.devs.agenda_agil;
 
-import com.devs.src.DateUtil;
+import com.devs.entity.Evento;
+import com.devs.entity.EventoCiclico;
+import com.devs.entity.Tarea;
+import com.devs.entity.TareaPlanificada;
+import com.devs.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;

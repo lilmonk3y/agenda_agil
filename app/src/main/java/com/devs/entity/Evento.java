@@ -1,4 +1,4 @@
-package com.devs.agenda_agil;
+package com.devs.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import java.util.Calendar;
 import java.util.Objects;
 
-class Evento implements Parcelable {
+public class Evento implements Parcelable {
     private String titulo;
     private Calendar fecha;
     private Boolean realizado;

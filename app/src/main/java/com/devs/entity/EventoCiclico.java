@@ -1,10 +1,10 @@
-package com.devs.agenda_agil;
+package com.devs.entity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-class EventoCiclico {
+public class EventoCiclico {
     private String titulo;
     private Calendar diaDeInicio;
     private List<Integer> repiteSemanal = new ArrayList<>();

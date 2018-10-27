@@ -1,5 +1,8 @@
 package com.devs.agenda_agil;
 
+import com.devs.entity.Prioridad;
+import com.devs.entity.Tarea;
+
 import org.junit.Test;
 
 import java.util.ArrayList;

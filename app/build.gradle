@@ -33,4 +33,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.mockito/mockito-all
     testImplementation group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
 
+    apply plugin: 'realm-android'
+    realm {
+        syncEnabled = true;
+    }
+
 }

@@ -2,7 +2,11 @@ package com.devs.agenda_agil;
 
 import android.support.annotation.NonNull;
 
-import com.devs.src.DateUtil;
+import com.devs.entity.Evento;
+import com.devs.entity.EventoCiclico;
+import com.devs.entity.Prioridad;
+import com.devs.entity.Tarea;
+import com.devs.util.DateUtil;
 
 import org.junit.Test;
 import org.mockito.Mockito;

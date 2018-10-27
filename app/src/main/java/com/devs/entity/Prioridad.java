@@ -1,4 +1,4 @@
-package com.devs.agenda_agil;
+package com.devs.entity;
 
 public enum Prioridad {
     MAXIMA (1),

@@ -1,8 +1,8 @@
-package com.devs.agenda_agil;
+package com.devs.entity;
 
 import java.util.Calendar;
 
-class TareaPlanificada {
+public class TareaPlanificada {
     private Calendar fecha;
     private String nombre;
 

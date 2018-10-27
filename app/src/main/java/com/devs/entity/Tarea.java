@@ -1,10 +1,10 @@
-package com.devs.agenda_agil;
+package com.devs.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-class Tarea implements Parcelable, Comparable<Tarea>{
+public class Tarea implements Parcelable, Comparable<Tarea>{
     private Prioridad prioridad;
     private String nombre;
 

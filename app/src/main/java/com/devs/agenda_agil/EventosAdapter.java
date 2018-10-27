@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.devs.entity.Evento;
+
 import java.util.ArrayList;
 
 class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHolderEventos>{

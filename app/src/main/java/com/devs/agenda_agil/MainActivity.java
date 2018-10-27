@@ -7,19 +7,20 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Fade;
-import android.transition.Scene;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
+import com.devs.entity.Evento;
+import com.devs.entity.Tarea;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
+import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity {
     Agenda agenda = new Agenda();
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     int creadorDeTareasPrioridad;
     Tarea tarea;
 
+    private Realm realm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         barraDeNavegacion.setOnNavigationItemSelectedListener(navListener);
         View view = barraDeNavegacion.findViewById(R.id.eventos);
         view.performClick();
+
+        Realm.init(getApplicationContext());
 
         fabMenu = findViewById(R.id.fab_crear);
         fabMenu.setClosedOnTouchOutside(true);
